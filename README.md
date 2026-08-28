@@ -17,7 +17,7 @@ The unnumbered source note “make a PDB for IHES” is recorded as future conte
 
 | # | Method | Core intervention | Kaggle | Beam-365000 result | Verdict |
 |---:|---|---|---|---|---|
-| 1 | [Parameterized transforms](methods/01_parameterized_transforms/README.md) | validated symmetries, path reversal, `MirrorState`, `ComplementState`, and move substitutions | pending | pending | pending |
+| 1 | [Parameterized transforms](methods/01_parameterized_transforms/README.md) | validated symmetries, path reversal, `MirrorState`, `ComplementState`, and move substitutions | [public notebook](https://www.kaggle.com/code/arabidopsisthalian/ihes-method-01-parameterized-transforms) | running | pending |
 | 2 | [Cumulative scoring](methods/02_cumulative_scoring/README.md) | accumulate scores along each beam path | pending | pending | pending |
 | 3 | [Two-step ~300-head model](methods/03_two_step_300_head/README.md) | 306 non-backtracking two-move outputs | pending | pending | pending |
 | 4 | [Two-move retraining](methods/04_two_move_retraining/README.md) | train and infer with two-move generators | pending | pending | pending |
@@ -55,7 +55,6 @@ The test suite uses a small synthetic permutation puzzle and does not require co
 
 ## Kaggle execution
 
-Attach the competition data, `cube_symmetries.npy` where needed, and one registered IHES model asset. Run a notebook with a T4 GPU. Each notebook defaults to IDs 100–120 and beam width 365000, checkpoints its per-puzzle JSON/CSV records, validates every selected path by exact replay, and finally validates all 1,003 rows of `submission.csv`.
+Attach the competition data, `cube_symmetries.npy` where needed, and one registered IHES model asset. Each Kaggle metadata file pins `NvidiaTeslaT4`. Every notebook defaults to IDs 100–120 and beam width 365000, checkpoints its per-puzzle JSON/CSV records, validates every selected path by exact replay, and finally validates all 1,003 rows of `submission.csv`.
 
 See [METHOD.md](METHOD.md), [RESULTS.md](RESULTS.md), and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) before interpreting results.
-
