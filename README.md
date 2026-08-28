@@ -17,7 +17,7 @@ The unnumbered source note “make a PDB for IHES” is recorded as future conte
 
 | # | Method | Core intervention | Kaggle | Beam-365000 result | Verdict |
 |---:|---|---|---|---|---|
-| 1 | [Parameterized transforms](methods/01_parameterized_transforms/README.md) | validated symmetries, path reversal, `MirrorState`, `ComplementState`, and move substitutions | [public notebook](https://www.kaggle.com/code/arabidopsisthalian/ihes-method-01-parameterized-transforms) | running | pending |
+| 1 | [Parameterized transforms](methods/01_parameterized_transforms/README.md) | validated symmetries, path reversal, `MirrorState`, `ComplementState`, and move substitutions | [public notebook](https://www.kaggle.com/code/arabidopsisthalian/ihes-method-01-parameterized-transforms) | v2 interrupted for priority task | pending |
 | 2 | [Cumulative scoring](methods/02_cumulative_scoring/README.md) | accumulate scores along each beam path | pending | pending | pending |
 | 3 | [Two-step ~300-head model](methods/03_two_step_300_head/README.md) | 306 non-backtracking two-move outputs | pending | pending | pending |
 | 4 | [Two-move retraining](methods/04_two_move_retraining/README.md) | train and infer with two-move generators | pending | pending | pending |

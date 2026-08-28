@@ -23,3 +23,4 @@ Machine-readable rows live in `results/benchmark.csv`; the header is committed s
 ## Failed runs retained for audit
 
 - Method 1, Kaggle version 1: public and output-producing, but not benchmark evidence. Kaggle assigned a Tesla P100 while its PyTorch 2.10.0+cu128 image omitted `sm_60`; all 21 searches recorded `AcceleratorError`. The valid 1,003-row fallback submission does not make those searches complete. See `results/kaggle/01_v1_failure.json`. Subsequent metadata pins `NvidiaTeslaT4`, and summaries now mark any error/invalid/truncated row as `failed`.
+- Method 1, Kaggle version 2: ran on GPU T4 x2 for approximately eight hours, then was deliberately stopped when the higher-priority IHES bidirectional notebook launched. Kaggle acknowledged the cancellation; no output, repository commit, replay result, or submission from this interrupted version is treated as benchmark evidence. See `results/kaggle/01_v2_interrupted.json`.

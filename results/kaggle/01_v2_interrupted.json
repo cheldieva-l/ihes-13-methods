@@ -1,0 +1,14 @@
+{
+  "accelerator": "GPU T4 x2",
+  "beam_width": 365000,
+  "cancelled_at_utc": "2026-08-28T20:04:39Z",
+  "kaggle_status": "KernelWorkerStatus.CANCEL_ACKNOWLEDGED",
+  "kaggle_url": "https://www.kaggle.com/code/arabidopsisthalian/ihes-method-01-parameterized-transforms",
+  "kaggle_version": 2,
+  "observed_runtime": "8h",
+  "puzzle_ids": "100-120",
+  "reason": "The lower-priority run was stopped when the higher-priority IHES bidirectional notebook launched, preserving Kaggle GPU capacity for that task.",
+  "repository_commit_verified": false,
+  "submission_verified": false,
+  "verdict": "interrupted-not-benchmark-evidence"
+}
