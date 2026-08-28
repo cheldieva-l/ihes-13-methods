@@ -47,6 +47,8 @@ def run_experiment(
     device: str = "auto",
     smoke: bool = False,
     reference_submission: str | Path | None = None,
+    resume_from: str | Path | None = None,
+    max_new_puzzles: int | None = None,
 ) -> dict[str, object]:
     spec = get_method(method_id)
     config = load_method_config(method_id)
@@ -72,8 +74,15 @@ def run_experiment(
         model_id=prepared.model_id,
         checkpoint_sha256=prepared.checkpoint_sha256,
         reference_submission=reference_submission,
+        resume_from=resume_from,
     )
-    for puzzle_id in map(int, puzzle_ids):
+    requested_ids = tuple(map(int, puzzle_ids))
+    pending_ids = [puzzle_id for puzzle_id in requested_ids if puzzle_id not in session.completed_ids]
+    if max_new_puzzles is not None:
+        if int(max_new_puzzles) < 1:
+            raise ValueError("max_new_puzzles must be positive when provided")
+        pending_ids = pending_ids[: int(max_new_puzzles)]
+    for puzzle_id in pending_ids:
         start = session.state(puzzle_id)
         reference_path = session.reference_path(puzzle_id) if spec.kind == "dual_center" else None
         try:
@@ -105,7 +114,9 @@ def run_experiment(
                 run_status="error",
                 metadata={"error_type": type(error).__name__, "error": str(error)},
             )
-    summary = session.finalize(tuple(map(int, puzzle_ids)))
+    summary = session.finalize(requested_ids)
+    summary["executed_puzzle_ids"] = pending_ids
+    summary["max_new_puzzles"] = max_new_puzzles
     summary["device"] = selected_device
     summary["accelerator_name"] = (
         torch.cuda.get_device_name(0)

@@ -57,4 +57,6 @@ The test suite uses a small synthetic permutation puzzle and does not require co
 
 Attach the competition data, `cube_symmetries.npy` where needed, and one registered IHES model asset. Each Kaggle metadata file pins `NvidiaTeslaT4`. Every notebook defaults to IDs 100–120 and beam width 365000, checkpoints its per-puzzle JSON/CSV records, validates every selected path by exact replay, and finally validates all 1,003 rows of `submission.csv`.
 
+Method 1 version 3 is staged, but not launched, as a replay-verified continuation of the interrupted version 2 artifacts. It pins version 2 as a Kaggle kernel source, rejects any identity or replay mismatch before searching, skips completed IDs 100–102, and processes at most three new IDs per version without reducing the requested beam width or transform portfolio. The [rerun plan](results/kaggle/01_v3_rerun_plan.md) explains the capacity gate and evidence rules.
+
 See [METHOD.md](METHOD.md), [RESULTS.md](RESULTS.md), and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) before interpreting results.

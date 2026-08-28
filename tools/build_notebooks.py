@@ -65,6 +65,8 @@ def build_notebook(method_id: int, title: str, summary: str) -> dict[str, object
                 MODEL_ROOT = Path("/kaggle/input")
                 WORKING = Path("/kaggle/working")
                 REFERENCE_SUBMISSION = None  # Optional attached replay-valid control CSV.
+                RESUME_KERNEL_VERSION = {2 if method_id == 1 else None!r}
+                MAX_NEW_PUZZLES = {3 if method_id == 1 else None!r}
                 """
             ),
             code(
@@ -116,6 +118,29 @@ def build_notebook(method_id: int, title: str, summary: str) -> dict[str, object
             ),
             code(
                 """
+                RESUME_FROM = None
+                if RESUME_KERNEL_VERSION is not None:
+                    candidates = [
+                        path.parent
+                        for path in ASSET_ROOT.rglob("benchmark_rows.json")
+                        if path.parent.name == "full"
+                        and path.parent.parent.name == f"method-{METHOD_ID:02d}"
+                        and (path.parent / "submission.partial.csv").is_file()
+                    ]
+                    if len(candidates) != 1:
+                        raise RuntimeError(
+                            "Expected exactly one pinned resume artifact directory; "
+                            f"found {len(candidates)}: {candidates}"
+                        )
+                    RESUME_FROM = candidates[0]
+                    print({
+                        "resume_from": str(RESUME_FROM),
+                        "resume_kernel_version": RESUME_KERNEL_VERSION,
+                    })
+                """
+            ),
+            code(
+                """
                 smoke_summary = None
                 if RUN_SMOKE:
                     smoke_summary = run_experiment(
@@ -148,6 +173,8 @@ def build_notebook(method_id: int, title: str, summary: str) -> dict[str, object
                         device=DEVICE,
                         smoke=False,
                         reference_submission=REFERENCE_SUBMISSION,
+                        resume_from=RESUME_FROM,
+                        max_new_puzzles=MAX_NEW_PUZZLES,
                     )
                     shutil.copy2(full_output / "submission.csv", WORKING / "submission.csv")
                     shutil.copy2(full_output / "benchmark_rows.json", WORKING / f"method_{METHOD_ID:02d}_benchmark_rows.json")
@@ -170,11 +197,26 @@ def build_notebook(method_id: int, title: str, summary: str) -> dict[str, object
                 puzzle = IHESPuzzle.from_puzzle_info(assets.puzzle_info)
                 validation = validate_submission(final_submission, assets.test_csv, puzzle)
                 print({"submission": str(final_submission), "validation": validation})
-                if full_summary is not None and not full_summary.get("completed", False):
+                if (
+                    full_summary is not None
+                    and not full_summary.get("completed", False)
+                    and MAX_NEW_PUZZLES is None
+                ):
                     raise RuntimeError(
                         "The full benchmark recorded failed puzzle runs; inspect "
                         f"method_{METHOD_ID:02d}_benchmark_rows.json"
                     )
+                if full_summary is not None and MAX_NEW_PUZZLES is not None:
+                    assert full_summary["method_verdict"] in {
+                        "pending",
+                        "progressive",
+                        "not-progressive",
+                    }
+                    print({
+                        "intentional_incremental_run": True,
+                        "completed": full_summary["completed"],
+                        "pending_puzzle_ids": full_summary["pending_puzzle_ids"],
+                    })
                 """
             ),
         ],
@@ -224,6 +266,10 @@ def main() -> None:
             "competition_sources": ["cayleypy-ihes-cube"],
             "dataset_sources": dataset_sources,
         }
+        if method.method_id == 1:
+            metadata["kernel_sources"] = [
+                f"{KAGGLE_USERNAME}/ihes-method-01-parameterized-transforms/2"
+            ]
         (METADATA / f"{method.method_id:02d}_{method.slug}.json").write_text(
             json.dumps(metadata, indent=2, sort_keys=True) + "\n", encoding="utf-8"
         )

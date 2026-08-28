@@ -61,6 +61,7 @@ class BenchmarkSession:
         model_id: str,
         checkpoint_sha256: str,
         reference_submission: str | Path | None = None,
+        resume_from: str | Path | None = None,
     ) -> None:
         self.assets: CompetitionAssets = find_competition_assets(asset_root)
         self.puzzle = IHESPuzzle.from_puzzle_info(self.assets.puzzle_info)
@@ -108,6 +109,87 @@ class BenchmarkSession:
         self.model_id = str(model_id)
         self.checkpoint_sha256 = checkpoint_sha256
         self.rows: list[BenchmarkRow] = []
+        self.resumed_puzzle_ids: tuple[int, ...] = ()
+        if resume_from is not None:
+            self._load_resume(resume_from)
+
+    @property
+    def completed_ids(self) -> set[int]:
+        return {
+            row.puzzle_id
+            for row in self.rows
+            if row.run_status == "completed" and row.replay_valid
+        }
+
+    def _load_resume(self, resume_from: str | Path) -> None:
+        root = Path(resume_from)
+        rows_path = root / "benchmark_rows.json"
+        submission_path = root / "submission.partial.csv"
+        if not rows_path.is_file() or not submission_path.is_file():
+            raise FileNotFoundError(
+                "resume input must contain benchmark_rows.json and submission.partial.csv"
+            )
+        payload = json.loads(rows_path.read_text(encoding="utf-8"))
+        if not isinstance(payload, list):
+            raise ValueError("resume benchmark rows must be a JSON list")
+
+        resumed: list[BenchmarkRow] = []
+        seen: set[int] = set()
+        for item in payload:
+            if not isinstance(item, dict):
+                raise ValueError("every resume benchmark row must be an object")
+            row = BenchmarkRow(**item)
+            if row.puzzle_id in seen:
+                raise ValueError(f"duplicate resume puzzle id: {row.puzzle_id}")
+            seen.add(row.puzzle_id)
+            expected_identity = (
+                row.method_id == self.method_id
+                and row.method_slug == self.method_slug
+                and row.beam_width == self.beam_width
+                and row.model_id == self.model_id
+                and row.checkpoint_sha256 == self.checkpoint_sha256
+                and row.reference_identity == self.reference_identity
+            )
+            if not expected_identity:
+                raise ValueError(f"resume identity mismatch for puzzle {row.puzzle_id}")
+            if row.run_status != "completed" or not row.replay_valid:
+                continue
+            if row.solution is None or row.solution_length is None:
+                raise ValueError(f"completed resume row {row.puzzle_id} has no solution")
+            decoded = self.puzzle.decode_path(row.solution)
+            reference_length = self.reference_lengths[row.puzzle_id]
+            if (
+                len(decoded) != row.solution_length
+                or not self.puzzle.verify_solution(self.state(row.puzzle_id), decoded)
+                or row.reference_length != reference_length
+                or row.delta_vs_reference != row.solution_length - reference_length
+            ):
+                raise ValueError(f"resume replay or length mismatch for puzzle {row.puzzle_id}")
+            resumed.append(row)
+
+        prior_submission = pd.read_csv(submission_path)
+        temporary = self.output_root / ".resume.validation.csv"
+        prior_submission.to_csv(temporary, index=False)
+        try:
+            validate_submission(temporary, self.assets.test_csv, self.puzzle)
+        finally:
+            temporary.unlink(missing_ok=True)
+
+        expected_selected = self.reference.copy()
+        for row in resumed:
+            if row.solution_length is not None and row.solution_length < row.reference_length:
+                expected_selected.loc[
+                    expected_selected["initial_state_id"] == row.puzzle_id, "path"
+                ] = row.solution
+        expected_selected = expected_selected.sort_values("initial_state_id").reset_index(drop=True)
+        prior_submission = prior_submission.sort_values("initial_state_id").reset_index(drop=True)
+        if not prior_submission.equals(expected_selected):
+            raise ValueError("resume submission differs from its verified benchmark rows")
+
+        self.rows = resumed
+        self.selected = expected_selected
+        self.resumed_puzzle_ids = tuple(sorted(row.puzzle_id for row in resumed))
+        self._checkpoint()
 
     def state(self, puzzle_id: int) -> np.ndarray:
         return self.states[int(puzzle_id)].copy()
@@ -206,12 +288,24 @@ class BenchmarkSession:
             "completed": completed,
             "requested_rows_recorded": requested_rows_recorded,
             "run_status_counts": status_counts,
+            "resumed_puzzle_ids": list(self.resumed_puzzle_ids),
+            "pending_puzzle_ids": [
+                puzzle_id
+                for puzzle_id in expected
+                if puzzle_id not in {row.puzzle_id for row in self.rows}
+            ],
             "all_method_paths_replay_valid": full_exact,
             "reference_identity": self.reference_identity,
             "reference_total": reference_total,
             "selected_total": selected_total,
             "strictly_improved_puzzles": improved,
-            "method_verdict": verdict if completed else "failed",
+            "method_verdict": (
+                verdict
+                if completed
+                else "failed"
+                if any(status_counts.get(status, 0) for status in {"error", "invalid", "truncated"})
+                else "pending"
+            ),
             "model_id": self.model_id,
             "checkpoint_sha256": self.checkpoint_sha256,
             "submission_validation": validation,

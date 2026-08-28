@@ -11,6 +11,9 @@
   "enable_internet": true,
   "id": "arabidopsisthalian/ihes-method-01-parameterized-transforms",
   "is_private": false,
+  "kernel_sources": [
+    "arabidopsisthalian/ihes-method-01-parameterized-transforms/2"
+  ],
   "kernel_type": "notebook",
   "language": "python",
   "machine_shape": "NvidiaTeslaT4",

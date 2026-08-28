@@ -2,16 +2,20 @@
   "accelerator_name": "Tesla T4",
   "beam_width": 365000,
   "cancelled_at_utc": "2026-08-28T20:04:39Z",
+  "cancellation_cause": "manual stop requested by the IHES monitoring task to yield Kaggle capacity",
+  "cancellation_cause_class": "manual",
   "checkpoint_sha256": "b19eb25bcb03eea831d6679ae2f532f5786583e4ac0a793d69ba8cadb259fa5b",
   "completed_puzzles": 3,
   "final_submission_present": false,
   "final_summary_present": false,
+  "code_failure_observed": false,
   "kaggle_status": "KernelWorkerStatus.CANCEL_ACKNOWLEDGED",
   "kaggle_url": "https://www.kaggle.com/code/arabidopsisthalian/ihes-method-01-parameterized-transforms",
   "kaggle_version": 2,
   "machine_shape": "GPU T4 x2",
   "model_id": "1778521793",
   "observed_runtime": "8h",
+  "quota_termination_observed": false,
   "partial_full_results": [
     {
       "delta_vs_reference": -74,
@@ -54,6 +58,7 @@
   "repository_commit": "69885b213433538356b37d6ad27e2040769b4da6",
   "repository_commit_verified": true,
   "requested_puzzles": 21,
+  "timeout_observed": false,
   "smoke": {
     "beam_width": 64,
     "completed": true,
