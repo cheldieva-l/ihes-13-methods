@@ -41,7 +41,7 @@ The source image contains an unnumbered line, “make a PDB for IHES.” It is r
 - `progressive`: replay-valid selected total for IDs 100–120 is strictly below the declared reference total and at least one puzzle was strictly improved.
 - `not-progressive`: a completed run does not satisfy the rule above.
 - `pending`: no completed full run has been ingested.
+- `failed`: all requested rows may have been recorded, but at least one search ended in `error`, `invalid`, or `truncated`; it is not benchmark evidence.
 - `invalid` or `truncated`: the run violated replay/exactness requirements and is not benchmark evidence.
 
 Runtime and length comparisons are meaningful only between rows with the same puzzle set, beam width, device class, depth limit, and declared reference.
-

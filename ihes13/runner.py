@@ -107,6 +107,11 @@ def run_experiment(
             )
     summary = session.finalize(tuple(map(int, puzzle_ids)))
     summary["device"] = selected_device
+    summary["accelerator_name"] = (
+        torch.cuda.get_device_name(0)
+        if selected_device.startswith("cuda") and torch.cuda.is_available()
+        else "CPU"
+    )
     summary["smoke"] = bool(smoke)
     summary["preparation"] = prepared.metadata
     (Path(output_root) / "summary.json").write_text(
@@ -163,4 +168,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

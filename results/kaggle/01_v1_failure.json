@@ -1,0 +1,16 @@
+{
+  "accelerator": "Tesla P100-PCIE-16GB",
+  "beam_width": 365000,
+  "checkpoint_sha256": "b19eb25bcb03eea831d6679ae2f532f5786583e4ac0a793d69ba8cadb259fa5b",
+  "error_type": "AcceleratorError",
+  "failed_puzzles": 21,
+  "kaggle_url": "https://www.kaggle.com/code/arabidopsisthalian/ihes-method-01-parameterized-transforms",
+  "kaggle_version": 1,
+  "model_id": "1778521793",
+  "puzzle_ids": "100-120",
+  "pytorch": "2.10.0+cu128",
+  "reason": "The assigned P100 has CUDA capability sm_60, which the runtime PyTorch binary did not include.",
+  "repository_commit": "7c207ba80d6c0d75d4b503b5f377206182fa4d4d",
+  "submission_rows": 1003,
+  "verdict": "failed-not-benchmark-evidence"
+}

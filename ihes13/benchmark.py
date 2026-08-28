@@ -133,7 +133,7 @@ class BenchmarkSession:
         length = len(path) if replay_valid and path is not None else None
         delta = None if length is None else int(length - reference_length)
         verdict = "progressive" if delta is not None and delta < 0 else "not-progressive"
-        if run_status in {"invalid", "truncated"}:
+        if run_status in {"error", "invalid", "truncated"}:
             verdict = run_status
         row = BenchmarkRow(
             method_id=self.method_id,
@@ -171,8 +171,9 @@ class BenchmarkSession:
 
     def finalize(self, benchmark_ids: Sequence[int]) -> dict[str, object]:
         expected = tuple(map(int, benchmark_ids))
-        observed = tuple(row.puzzle_id for row in self.rows if row.puzzle_id in expected)
-        completed = set(observed) == set(expected)
+        requested_rows_recorded, completed, status_counts = _completion_status(
+            self.rows, expected
+        )
         submission_path = self.output_root / "submission.csv"
         self.selected.to_csv(submission_path, index=False)
         validation = validate_submission(submission_path, self.assets.test_csv, self.puzzle)
@@ -203,12 +204,14 @@ class BenchmarkSession:
             "puzzle_ids": list(expected),
             "beam_width": self.beam_width,
             "completed": completed,
+            "requested_rows_recorded": requested_rows_recorded,
+            "run_status_counts": status_counts,
             "all_method_paths_replay_valid": full_exact,
             "reference_identity": self.reference_identity,
             "reference_total": reference_total,
             "selected_total": selected_total,
             "strictly_improved_puzzles": improved,
-            "method_verdict": verdict,
+            "method_verdict": verdict if completed else "failed",
             "model_id": self.model_id,
             "checkpoint_sha256": self.checkpoint_sha256,
             "submission_validation": validation,
@@ -219,6 +222,25 @@ class BenchmarkSession:
         return summary
 
 
+def _completion_status(
+    rows: Sequence[BenchmarkRow], expected: Sequence[int]
+) -> tuple[bool, bool, dict[str, int]]:
+    expected_ids = tuple(map(int, expected))
+    requested = [row for row in rows if row.puzzle_id in expected_ids]
+    observed = tuple(row.puzzle_id for row in requested)
+    requested_rows_recorded = (
+        len(observed) == len(expected_ids) and set(observed) == set(expected_ids)
+    )
+    status_counts: dict[str, int] = {}
+    for row in requested:
+        status_counts[row.run_status] = status_counts.get(row.run_status, 0) + 1
+    failed_statuses = {"error", "invalid", "truncated"}
+    completed = requested_rows_recorded and not any(
+        status_counts.get(status, 0) for status in failed_statuses
+    )
+    return requested_rows_recorded, completed, status_counts
+
+
 class Timer:
     def __enter__(self) -> "Timer":
         self.started = time.perf_counter()
@@ -227,4 +249,3 @@ class Timer:
 
     def __exit__(self, *args: object) -> None:
         self.elapsed = time.perf_counter() - self.started
-

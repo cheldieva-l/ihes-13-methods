@@ -17,8 +17,15 @@ def test_notebooks_are_english_unexecuted_and_emit_submission() -> None:
         assert "submission.csv" in text
         assert "365_000" in text
         assert "tuple(range(100, 121))" in text
+        assert "full_summary.get(\"completed\", False)" in text
         for cell in payload["cells"]:
             if cell["cell_type"] == "code":
                 assert cell["execution_count"] is None
                 assert cell["outputs"] == []
 
+
+def test_kaggle_metadata_requests_t4() -> None:
+    for path in sorted((ROOT / "kaggle-metadata").glob("*.json")):
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        assert payload["machine_shape"] == "NvidiaTeslaT4"
+        assert payload["enable_gpu"] is True

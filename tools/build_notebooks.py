@@ -170,6 +170,11 @@ def build_notebook(method_id: int, title: str, summary: str) -> dict[str, object
                 puzzle = IHESPuzzle.from_puzzle_info(assets.puzzle_info)
                 validation = validate_submission(final_submission, assets.test_csv, puzzle)
                 print({"submission": str(final_submission), "validation": validation})
+                if full_summary is not None and not full_summary.get("completed", False):
+                    raise RuntimeError(
+                        "The full benchmark recorded failed puzzle runs; inspect "
+                        f"method_{METHOD_ID:02d}_benchmark_rows.json"
+                    )
                 """
             ),
         ],
@@ -215,6 +220,7 @@ def main() -> None:
             "is_private": False,
             "enable_gpu": True,
             "enable_internet": True,
+            "machine_shape": "NvidiaTeslaT4",
             "competition_sources": ["cayleypy-ihes-cube"],
             "dataset_sources": dataset_sources,
         }

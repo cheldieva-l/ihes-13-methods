@@ -20,3 +20,6 @@ No full beam-width-365000 Kaggle T4 run has been ingested yet. The table below i
 
 Machine-readable rows live in `results/benchmark.csv`; the header is committed so completed Kaggle artifacts can be ingested without changing the schema.
 
+## Failed runs retained for audit
+
+- Method 1, Kaggle version 1: public and output-producing, but not benchmark evidence. Kaggle assigned a Tesla P100 while its PyTorch 2.10.0+cu128 image omitted `sm_60`; all 21 searches recorded `AcceleratorError`. The valid 1,003-row fallback submission does not make those searches complete. See `results/kaggle/01_v1_failure.json`. Subsequent metadata pins `NvidiaTeslaT4`, and summaries now mark any error/invalid/truncated row as `failed`.

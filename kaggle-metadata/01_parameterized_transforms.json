@@ -13,5 +13,6 @@
   "is_private": false,
   "kernel_type": "notebook",
   "language": "python",
+  "machine_shape": "NvidiaTeslaT4",
   "title": "IHES Method 01 - Parameterized transforms"
 }
