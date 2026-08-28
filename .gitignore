@@ -1,0 +1,35 @@
+# Python/build output
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+build/
+dist/
+*.egg-info/
+.venv/
+
+# Local/private runtime assets
+work/
+private-assets/
+.ihes_model_cache/
+*.pth
+*.pt
+*.ckpt
+*.safetensors
+*.rar
+*.zip
+*.7z
+kaggle.json
+
+# Generated benchmark artifacts (only curated summaries are committed)
+runs/
+submission.csv
+results/raw/
+results/*.partial
+
+# Editors/OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+

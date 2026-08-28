@@ -1,0 +1,16 @@
+{
+  "code_file": "04_two_move_retraining.ipynb",
+  "competition_sources": [
+    "cayleypy-ihes-cube"
+  ],
+  "dataset_sources": [
+    "arabidopsisthalian/ihes-model-1778521793"
+  ],
+  "enable_gpu": true,
+  "enable_internet": true,
+  "id": "cheldieva-l/ihes-method-04-two-move-retraining",
+  "is_private": false,
+  "kernel_type": "notebook",
+  "language": "python",
+  "title": "IHES Method 04 - Two-move retraining"
+}

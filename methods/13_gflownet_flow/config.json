@@ -1,0 +1,18 @@
+{
+  "method_id": 13,
+  "model_id": "gfn-ihes-local",
+  "teacher_model_id": "1778521793",
+  "beam_width": 365000,
+  "max_depth": 30,
+  "hidden_size": 1024,
+  "residual_blocks": 6,
+  "random_trajectory_length": 29,
+  "train_steps": 20000,
+  "batch_size": 512,
+  "learning_rate": 0.0003,
+  "weight_decay": 0.00001,
+  "regularization_coefficient": 0.000001,
+  "gradient_clip": 100.0,
+  "seed": 1313
+}
+

@@ -1,0 +1,9 @@
+{
+  "method_id": 10,
+  "model_id": "1778521793",
+  "beam_width": 365000,
+  "max_depth": 30,
+  "prune_immediate_inverse": true,
+  "seed": 1310
+}
+

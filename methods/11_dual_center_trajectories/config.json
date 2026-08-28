@@ -1,0 +1,14 @@
+{
+  "method_id": 11,
+  "model_id": "1778521793",
+  "beam_width": 365000,
+  "max_depth": 30,
+  "reference_source": "sample_submission_or_explicit_control",
+  "train_steps": 2500,
+  "batch_size": 512,
+  "learning_rate": 0.0003,
+  "hidden_size": 1024,
+  "holdout_fraction": 0.2,
+  "seed": 1311
+}
+

@@ -1,0 +1,16 @@
+{
+  "code_file": "10_no_immediate_inverse.ipynb",
+  "competition_sources": [
+    "cayleypy-ihes-cube"
+  ],
+  "dataset_sources": [
+    "arabidopsisthalian/ihes-model-1778521793"
+  ],
+  "enable_gpu": true,
+  "enable_internet": true,
+  "id": "cheldieva-l/ihes-method-10-no-immediate-inverse",
+  "is_private": false,
+  "kernel_type": "notebook",
+  "language": "python",
+  "title": "IHES Method 10 - Immediate-inverse pruning"
+}

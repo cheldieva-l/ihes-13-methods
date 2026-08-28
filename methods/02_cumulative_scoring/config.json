@@ -1,0 +1,10 @@
+{
+  "method_id": 2,
+  "model_id": "1778521793",
+  "beam_width": 365000,
+  "max_depth": 30,
+  "cumulative_alpha": 0.35,
+  "normalize_per_depth": true,
+  "seed": 1302
+}
+

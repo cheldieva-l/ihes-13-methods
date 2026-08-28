@@ -1,0 +1,10 @@
+{
+  "method_id": 12,
+  "model_id": "1778521793",
+  "beam_width": 365000,
+  "max_depth_after_prefix": 20,
+  "ordinary_solver": "kociemba",
+  "qtm_expand_half_turns": true,
+  "seed": 1312
+}
+

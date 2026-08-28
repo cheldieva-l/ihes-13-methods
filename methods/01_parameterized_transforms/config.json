@@ -1,0 +1,17 @@
+{
+  "method_id": 1,
+  "model_id": "1778521793",
+  "beam_width": 365000,
+  "max_depth": 30,
+  "symmetry_limit": 48,
+  "full_search_frames": 2,
+  "smoke_beam_width": 2048,
+  "include_direct": true,
+  "include_reverse": true,
+  "mirror_modes": ["inverse", "conjugate"],
+  "complement_modes": ["left_goal", "right_goal"],
+  "axis_orders": ["frd", "rdf", "dft"],
+  "include_signed": true,
+  "include_double_moves": true,
+  "seed": 1301
+}

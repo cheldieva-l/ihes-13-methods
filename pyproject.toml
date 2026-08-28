@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ihes-13-methods"
+version = "0.1.0"
+description = "Thirteen replay-verified research methods for the CayleyPy IHES Cube"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {file = "LICENSE"}
+authors = [{name = "IHES 13 Methods contributors"}]
+dependencies = ["numpy>=1.24", "pandas>=2.0", "torch>=2.1"]
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+cube333 = ["kociemba>=1.2"]
+
+[project.scripts]
+ihes13-run = "ihes13.runner:main"
+
+[tool.setuptools.packages.find]
+include = ["ihes13*", "ihes_dual*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+

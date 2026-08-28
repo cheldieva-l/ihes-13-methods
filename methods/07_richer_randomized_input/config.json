@@ -1,0 +1,15 @@
+{
+  "method_id": 7,
+  "model_id": "1778521793",
+  "beam_width": 365000,
+  "max_depth": 30,
+  "random_code_dim": 16,
+  "neighbor_pool": "mean_min_max",
+  "distill_walks": 250000,
+  "train_steps": 2500,
+  "batch_size": 512,
+  "learning_rate": 0.0003,
+  "hidden_size": 1024,
+  "seed": 1307
+}
+

@@ -1,0 +1,16 @@
+{
+  "code_file": "09_radius7_intersection.ipynb",
+  "competition_sources": [
+    "cayleypy-ihes-cube"
+  ],
+  "dataset_sources": [
+    "arabidopsisthalian/ihes-model-1778521793"
+  ],
+  "enable_gpu": true,
+  "enable_internet": true,
+  "id": "cheldieva-l/ihes-method-09-radius7-intersection",
+  "is_private": false,
+  "kernel_type": "notebook",
+  "language": "python",
+  "title": "IHES Method 09 - Radius-7 wait/intersect"
+}

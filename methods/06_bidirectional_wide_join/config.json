@@ -1,0 +1,10 @@
+{
+  "method_id": 6,
+  "model_id": "1778521793",
+  "beam_width": 365000,
+  "forward_depths": [10, 11, 12, 13, 14, 15],
+  "reverse_depths": [10, 11, 12, 13, 14, 15],
+  "max_depth": 15,
+  "seed": 1306
+}
+

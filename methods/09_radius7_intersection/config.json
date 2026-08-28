@@ -1,0 +1,11 @@
+{
+  "method_id": 9,
+  "model_id": "1778521793",
+  "beam_width": 365000,
+  "max_forward_depth": 24,
+  "intersection_radius": 7,
+  "backward_state_cap": null,
+  "partitions": 256,
+  "seed": 1309
+}
+

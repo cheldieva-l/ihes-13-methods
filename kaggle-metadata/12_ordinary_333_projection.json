@@ -1,0 +1,16 @@
+{
+  "code_file": "12_ordinary_333_projection.ipynb",
+  "competition_sources": [
+    "cayleypy-ihes-cube"
+  ],
+  "dataset_sources": [
+    "arabidopsisthalian/ihes-model-1778521793"
+  ],
+  "enable_gpu": true,
+  "enable_internet": true,
+  "id": "cheldieva-l/ihes-method-12-ordinary-333-projection",
+  "is_private": false,
+  "kernel_type": "notebook",
+  "language": "python",
+  "title": "IHES Method 12 - Ordinary 3x3 projection"
+}

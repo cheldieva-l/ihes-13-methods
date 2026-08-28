@@ -1,0 +1,16 @@
+{
+  "code_file": "05_neighbor_score_student.ipynb",
+  "competition_sources": [
+    "cayleypy-ihes-cube"
+  ],
+  "dataset_sources": [
+    "arabidopsisthalian/ihes-model-1778521793"
+  ],
+  "enable_gpu": true,
+  "enable_internet": true,
+  "id": "cheldieva-l/ihes-method-05-neighbor-score-student",
+  "is_private": false,
+  "kernel_type": "notebook",
+  "language": "python",
+  "title": "IHES Method 05 - 18-neighbor student"
+}

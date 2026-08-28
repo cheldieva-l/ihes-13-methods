@@ -1,0 +1,2 @@
+method_id,method_slug,puzzle_id,beam_width,solution_length,replay_valid,runtime_seconds,model_id,checkpoint_sha256,reference_identity,reference_length,delta_vs_reference,verdict,run_status
+
