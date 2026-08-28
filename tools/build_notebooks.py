@@ -14,6 +14,7 @@ from ihes13.registry import METHODS
 NOTEBOOKS = ROOT / "notebooks"
 METADATA = ROOT / "kaggle-metadata"
 REPOSITORY_URL = "https://github.com/cheldieva-l/ihes-13-methods"
+KAGGLE_USERNAME = "arabidopsisthalian"
 
 
 def markdown(text: str) -> dict[str, object]:
@@ -202,8 +203,11 @@ def main() -> None:
             + "\n",
             encoding="utf-8",
         )
+        dataset_sources = ["arabidopsisthalian/ihes-model-1778521793"]
+        if method.method_id == 1:
+            dataset_sources.append("artgor/ihes-cube-tpu-artifacts")
         metadata = {
-            "id": f"cheldieva-l/ihes-method-{method.method_id:02d}-{method.slug.replace('_', '-')}",
+            "id": f"{KAGGLE_USERNAME}/ihes-method-{method.method_id:02d}-{method.slug.replace('_', '-')}",
             "title": f"IHES Method {method.method_id:02d} - {method.title}",
             "code_file": name,
             "language": "python",
@@ -212,7 +216,7 @@ def main() -> None:
             "enable_gpu": True,
             "enable_internet": True,
             "competition_sources": ["cayleypy-ihes-cube"],
-            "dataset_sources": ["arabidopsisthalian/ihes-model-1778521793"],
+            "dataset_sources": dataset_sources,
         }
         (METADATA / f"{method.method_id:02d}_{method.slug}.json").write_text(
             json.dumps(metadata, indent=2, sort_keys=True) + "\n", encoding="utf-8"

@@ -8,7 +8,7 @@
   ],
   "enable_gpu": true,
   "enable_internet": true,
-  "id": "cheldieva-l/ihes-method-04-two-move-retraining",
+  "id": "arabidopsisthalian/ihes-method-04-two-move-retraining",
   "is_private": false,
   "kernel_type": "notebook",
   "language": "python",

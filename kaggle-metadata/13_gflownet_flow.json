@@ -8,7 +8,7 @@
   ],
   "enable_gpu": true,
   "enable_internet": true,
-  "id": "cheldieva-l/ihes-method-13-gflownet-flow",
+  "id": "arabidopsisthalian/ihes-method-13-gflownet-flow",
   "is_private": false,
   "kernel_type": "notebook",
   "language": "python",

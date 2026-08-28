@@ -8,7 +8,7 @@
   ],
   "enable_gpu": true,
   "enable_internet": true,
-  "id": "cheldieva-l/ihes-method-11-dual-center-trajectories",
+  "id": "arabidopsisthalian/ihes-method-11-dual-center-trajectories",
   "is_private": false,
   "kernel_type": "notebook",
   "language": "python",

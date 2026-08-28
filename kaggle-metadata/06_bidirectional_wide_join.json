@@ -8,7 +8,7 @@
   ],
   "enable_gpu": true,
   "enable_internet": true,
-  "id": "cheldieva-l/ihes-method-06-bidirectional-wide-join",
+  "id": "arabidopsisthalian/ihes-method-06-bidirectional-wide-join",
   "is_private": false,
   "kernel_type": "notebook",
   "language": "python",

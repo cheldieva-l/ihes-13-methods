@@ -4,11 +4,12 @@
     "cayleypy-ihes-cube"
   ],
   "dataset_sources": [
-    "arabidopsisthalian/ihes-model-1778521793"
+    "arabidopsisthalian/ihes-model-1778521793",
+    "artgor/ihes-cube-tpu-artifacts"
   ],
   "enable_gpu": true,
   "enable_internet": true,
-  "id": "cheldieva-l/ihes-method-01-parameterized-transforms",
+  "id": "arabidopsisthalian/ihes-method-01-parameterized-transforms",
   "is_private": false,
   "kernel_type": "notebook",
   "language": "python",
