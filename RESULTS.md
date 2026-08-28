@@ -1,10 +1,10 @@
 # Results
 
-No full beam-width-365000 Kaggle T4 run has been ingested yet. The table below is deliberately evidence-only; generated notebooks and local smoke tests do not count as full benchmark results.
+No complete 21-puzzle beam-width-365000 Kaggle T4 run has been ingested yet. Three completed rows were recovered from interrupted Method 1 version 2 and independently replay-validated; the table distinguishes that partial evidence from a final method verdict. Generated notebooks and local smoke tests do not count as full benchmark results.
 
 | # | Method | Completed puzzles | Replay-valid | Total selected length | Runtime | Model/checkpoint | Verdict |
 |---:|---|---:|---:|---:|---:|---|---|
-| 1 | Parameterized transforms | 0/21 | pending | pending | pending | pending | pending |
+| 1 | Parameterized transforms | 3/21 | 3/3 | 71 (completed rows) | 23,019.50 s | `1778521793` / `b19eb25b...` | partial progressive; final pending |
 | 2 | Cumulative scoring | 0/21 | pending | pending | pending | pending | pending |
 | 3 | Two-step ~300-head model | 0/21 | pending | pending | pending | pending | pending |
 | 4 | Two-move retraining | 0/21 | pending | pending | pending | pending | pending |
@@ -23,4 +23,4 @@ Machine-readable rows live in `results/benchmark.csv`; the header is committed s
 ## Failed runs retained for audit
 
 - Method 1, Kaggle version 1: public and output-producing, but not benchmark evidence. Kaggle assigned a Tesla P100 while its PyTorch 2.10.0+cu128 image omitted `sm_60`; all 21 searches recorded `AcceleratorError`. The valid 1,003-row fallback submission does not make those searches complete. See `results/kaggle/01_v1_failure.json`. Subsequent metadata pins `NvidiaTeslaT4`, and summaries now mark any error/invalid/truncated row as `failed`.
-- Method 1, Kaggle version 2: ran on GPU T4 x2 for approximately eight hours, then was deliberately stopped when the higher-priority IHES bidirectional notebook launched. Kaggle acknowledged the cancellation; no output, repository commit, replay result, or submission from this interrupted version is treated as benchmark evidence. See `results/kaggle/01_v2_interrupted.json`.
+- Method 1, Kaggle version 2: ran on GPU T4 x2 for approximately eight hours, then was deliberately stopped when the higher-priority IHES bidirectional notebook launched. Kaggle acknowledged the cancellation. Recovered artifacts verify repository commit `69885b2`, a completed beam-64 smoke attempt, and three completed beam-365000 rows: puzzle 100 (24 moves, 7,796.49 s), 101 (23 moves, 7,313.75 s), and 102 (24 moves, 7,909.25 s). All three method paths replay successfully and strictly improve the official sample reference. The recovered 1,003-row partial submission also passes independent replay validation, but IDs 103–120, the final summary, and final `submission.csv` are absent; therefore the overall method verdict remains pending. See `results/kaggle/01_v2_interrupted.json`.

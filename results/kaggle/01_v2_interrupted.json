@@ -1,14 +1,68 @@
 {
-  "accelerator": "GPU T4 x2",
+  "accelerator_name": "Tesla T4",
   "beam_width": 365000,
   "cancelled_at_utc": "2026-08-28T20:04:39Z",
+  "checkpoint_sha256": "b19eb25bcb03eea831d6679ae2f532f5786583e4ac0a793d69ba8cadb259fa5b",
+  "completed_puzzles": 3,
+  "final_submission_present": false,
+  "final_summary_present": false,
   "kaggle_status": "KernelWorkerStatus.CANCEL_ACKNOWLEDGED",
   "kaggle_url": "https://www.kaggle.com/code/arabidopsisthalian/ihes-method-01-parameterized-transforms",
   "kaggle_version": 2,
+  "machine_shape": "GPU T4 x2",
+  "model_id": "1778521793",
   "observed_runtime": "8h",
-  "puzzle_ids": "100-120",
+  "partial_full_results": [
+    {
+      "delta_vs_reference": -74,
+      "puzzle_id": 100,
+      "replay_valid": true,
+      "runtime_seconds": 7796.491993,
+      "solution_length": 24,
+      "verdict": "progressive"
+    },
+    {
+      "delta_vs_reference": -76,
+      "puzzle_id": 101,
+      "replay_valid": true,
+      "runtime_seconds": 7313.754489,
+      "solution_length": 23,
+      "verdict": "progressive"
+    },
+    {
+      "delta_vs_reference": -76,
+      "puzzle_id": 102,
+      "replay_valid": true,
+      "runtime_seconds": 7909.250633,
+      "solution_length": 24,
+      "verdict": "progressive"
+    }
+  ],
+  "partial_submission_sha256": "5a2618f2fbfbc6c951865d96425bc7c5f9c3db71298aee73ad112bcdc3df79b6",
+  "partial_submission_validation": {
+    "maximum_length": 1000,
+    "minimum_length": 1,
+    "rows": 1003,
+    "total_moves": 500394
+  },
   "reason": "The lower-priority run was stopped when the higher-priority IHES bidirectional notebook launched, preserving Kaggle GPU capacity for that task.",
-  "repository_commit_verified": false,
-  "submission_verified": false,
-  "verdict": "interrupted-not-benchmark-evidence"
+  "recovered_artifact_sha256": {
+    "benchmark_rows.json": "fd40bb0bc165e97c09a92fc9ec322f171abef6727f62a92fb785af0603365cef",
+    "kaggle_log": "8c392d8d3ef7bff3dc384e634d2c9b79754b60008d6df162eaa31acf6afa9d3f",
+    "smoke_summary.json": "5c95497b454c3af39d939e891612ac7a057376a16c27f2394ff184229fba25b6"
+  },
+  "repository_commit": "69885b213433538356b37d6ad27e2040769b4da6",
+  "repository_commit_verified": true,
+  "requested_puzzles": 21,
+  "smoke": {
+    "beam_width": 64,
+    "completed": true,
+    "puzzle_ids": [
+      100
+    ],
+    "solution_found": false,
+    "submission_rows": 1003,
+    "verdict": "not-progressive"
+  },
+  "verdict": "interrupted-partial-evidence-final-pending"
 }
