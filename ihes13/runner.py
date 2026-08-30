@@ -48,6 +48,9 @@ def run_experiment(
     smoke: bool = False,
     reference_submission: str | Path | None = None,
     resume_from: str | Path | None = None,
+    expected_resume_puzzle_ids: Sequence[int] | None = None,
+    expected_resume_rows_sha256: str | None = None,
+    expected_resume_submission_sha256: str | None = None,
     max_new_puzzles: int | None = None,
 ) -> dict[str, object]:
     spec = get_method(method_id)
@@ -75,6 +78,9 @@ def run_experiment(
         checkpoint_sha256=prepared.checkpoint_sha256,
         reference_submission=reference_submission,
         resume_from=resume_from,
+        expected_resume_puzzle_ids=expected_resume_puzzle_ids,
+        expected_resume_rows_sha256=expected_resume_rows_sha256,
+        expected_resume_submission_sha256=expected_resume_submission_sha256,
     )
     requested_ids = tuple(map(int, puzzle_ids))
     pending_ids = [puzzle_id for puzzle_id in requested_ids if puzzle_id not in session.completed_ids]

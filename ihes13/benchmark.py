@@ -62,6 +62,9 @@ class BenchmarkSession:
         checkpoint_sha256: str,
         reference_submission: str | Path | None = None,
         resume_from: str | Path | None = None,
+        expected_resume_puzzle_ids: Sequence[int] | None = None,
+        expected_resume_rows_sha256: str | None = None,
+        expected_resume_submission_sha256: str | None = None,
     ) -> None:
         self.assets: CompetitionAssets = find_competition_assets(asset_root)
         self.puzzle = IHESPuzzle.from_puzzle_info(self.assets.puzzle_info)
@@ -110,8 +113,39 @@ class BenchmarkSession:
         self.checkpoint_sha256 = checkpoint_sha256
         self.rows: list[BenchmarkRow] = []
         self.resumed_puzzle_ids: tuple[int, ...] = ()
+        self.resume_audit: dict[str, object] | None = None
         if resume_from is not None:
             self._load_resume(resume_from)
+            expected_resume = (
+                None
+                if expected_resume_puzzle_ids is None
+                else tuple(sorted(map(int, expected_resume_puzzle_ids)))
+            )
+            if expected_resume is not None and self.resumed_puzzle_ids != expected_resume:
+                raise ValueError(
+                    "resume completed puzzle IDs mismatch: "
+                    f"expected {expected_resume}, got {self.resumed_puzzle_ids}"
+                )
+            expected_hashes = {
+                "benchmark_rows_sha256": expected_resume_rows_sha256,
+                "submission_partial_sha256": expected_resume_submission_sha256,
+            }
+            assert self.resume_audit is not None
+            for field, expected_hash in expected_hashes.items():
+                if expected_hash is not None and self.resume_audit[field] != expected_hash:
+                    raise ValueError(
+                        f"resume {field} mismatch: expected {expected_hash}, "
+                        f"got {self.resume_audit[field]}"
+                    )
+        elif any(
+            value is not None
+            for value in (
+                expected_resume_puzzle_ids,
+                expected_resume_rows_sha256,
+                expected_resume_submission_sha256,
+            )
+        ):
+            raise ValueError("expected resume identity requires resume_from")
 
     @property
     def completed_ids(self) -> set[int]:
@@ -185,10 +219,21 @@ class BenchmarkSession:
         prior_submission = prior_submission.sort_values("initial_state_id").reset_index(drop=True)
         if not prior_submission.equals(expected_selected):
             raise ValueError("resume submission differs from its verified benchmark rows")
+        if not resumed:
+            raise ValueError(
+                "resume input contains no completed replay-valid rows; "
+                "refusing to start an unresumed search"
+            )
 
         self.rows = resumed
         self.selected = expected_selected
         self.resumed_puzzle_ids = tuple(sorted(row.puzzle_id for row in resumed))
+        self.resume_audit = {
+            "benchmark_rows_sha256": sha256_file(rows_path),
+            "submission_partial_sha256": sha256_file(submission_path),
+            "rows_seen": len(payload),
+            "completed_replay_valid_ids": list(self.resumed_puzzle_ids),
+        }
         self._checkpoint()
 
     def state(self, puzzle_id: int) -> np.ndarray:
@@ -289,6 +334,7 @@ class BenchmarkSession:
             "requested_rows_recorded": requested_rows_recorded,
             "run_status_counts": status_counts,
             "resumed_puzzle_ids": list(self.resumed_puzzle_ids),
+            "resume_audit": self.resume_audit,
             "pending_puzzle_ids": [
                 puzzle_id
                 for puzzle_id in expected

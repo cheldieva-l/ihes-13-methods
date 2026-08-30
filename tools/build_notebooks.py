@@ -65,7 +65,11 @@ def build_notebook(method_id: int, title: str, summary: str) -> dict[str, object
                 MODEL_ROOT = Path("/kaggle/input")
                 WORKING = Path("/kaggle/working")
                 REFERENCE_SUBMISSION = None  # Optional attached replay-valid control CSV.
-                RESUME_KERNEL_VERSION = {2 if method_id == 1 else None!r}
+                RESUME_KERNEL_VERSION = {3 if method_id == 1 else None!r}
+                EXPECTED_RESUME_PUZZLE_IDS = {(100, 101, 102) if method_id == 1 else None!r}
+                EXPECTED_RESUME_ROWS_SHA256 = {"a1255dee599dadd4413b65c6207fa017866e71db825cbc90d361ce5c4a7dd049" if method_id == 1 else None!r}
+                EXPECTED_RESUME_SUBMISSION_SHA256 = {"5a2618f2fbfbc6c951865d96425bc7c5f9c3db71298aee73ad112bcdc3df79b6" if method_id == 1 else None!r}
+                EXPECTED_NEW_PUZZLE_IDS = {(103, 104, 105) if method_id == 1 else None!r}
                 MAX_NEW_PUZZLES = {3 if method_id == 1 else None!r}
                 """
             ),
@@ -136,6 +140,9 @@ def build_notebook(method_id: int, title: str, summary: str) -> dict[str, object
                     print({
                         "resume_from": str(RESUME_FROM),
                         "resume_kernel_version": RESUME_KERNEL_VERSION,
+                        "expected_resume_puzzle_ids": EXPECTED_RESUME_PUZZLE_IDS,
+                        "expected_resume_rows_sha256": EXPECTED_RESUME_ROWS_SHA256,
+                        "expected_resume_submission_sha256": EXPECTED_RESUME_SUBMISSION_SHA256,
                     })
                 """
             ),
@@ -174,6 +181,9 @@ def build_notebook(method_id: int, title: str, summary: str) -> dict[str, object
                         smoke=False,
                         reference_submission=REFERENCE_SUBMISSION,
                         resume_from=RESUME_FROM,
+                        expected_resume_puzzle_ids=EXPECTED_RESUME_PUZZLE_IDS,
+                        expected_resume_rows_sha256=EXPECTED_RESUME_ROWS_SHA256,
+                        expected_resume_submission_sha256=EXPECTED_RESUME_SUBMISSION_SHA256,
                         max_new_puzzles=MAX_NEW_PUZZLES,
                     )
                     shutil.copy2(full_output / "submission.csv", WORKING / "submission.csv")
@@ -207,6 +217,8 @@ def build_notebook(method_id: int, title: str, summary: str) -> dict[str, object
                         f"method_{METHOD_ID:02d}_benchmark_rows.json"
                     )
                 if full_summary is not None and MAX_NEW_PUZZLES is not None:
+                    assert tuple(full_summary["resumed_puzzle_ids"]) == EXPECTED_RESUME_PUZZLE_IDS
+                    assert tuple(full_summary["executed_puzzle_ids"]) == EXPECTED_NEW_PUZZLE_IDS
                     assert full_summary["method_verdict"] in {
                         "pending",
                         "progressive",
@@ -215,6 +227,8 @@ def build_notebook(method_id: int, title: str, summary: str) -> dict[str, object
                     print({
                         "intentional_incremental_run": True,
                         "completed": full_summary["completed"],
+                        "resumed_puzzle_ids": full_summary["resumed_puzzle_ids"],
+                        "executed_puzzle_ids": full_summary["executed_puzzle_ids"],
                         "pending_puzzle_ids": full_summary["pending_puzzle_ids"],
                     })
                 """
@@ -268,7 +282,7 @@ def main() -> None:
         }
         if method.method_id == 1:
             metadata["kernel_sources"] = [
-                f"{KAGGLE_USERNAME}/ihes-method-01-parameterized-transforms/2"
+                f"{KAGGLE_USERNAME}/ihes-method-01-parameterized-transforms/3"
             ]
         (METADATA / f"{method.method_id:02d}_{method.slug}.json").write_text(
             json.dumps(metadata, indent=2, sort_keys=True) + "\n", encoding="utf-8"

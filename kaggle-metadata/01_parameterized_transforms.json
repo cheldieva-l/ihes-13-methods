@@ -12,7 +12,7 @@
   "id": "arabidopsisthalian/ihes-method-01-parameterized-transforms",
   "is_private": false,
   "kernel_sources": [
-    "arabidopsisthalian/ihes-method-01-parameterized-transforms/2"
+    "arabidopsisthalian/ihes-method-01-parameterized-transforms/3"
   ],
   "kernel_type": "notebook",
   "language": "python",

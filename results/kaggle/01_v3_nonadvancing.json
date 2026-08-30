@@ -1,0 +1,84 @@
+{
+  "beam_width": 365000,
+  "checkpoint_sha256": "b19eb25bcb03eea831d6679ae2f532f5786583e4ac0a793d69ba8cadb259fa5b",
+  "executed_puzzle_ids": [
+    100,
+    101,
+    102
+  ],
+  "github_commit": "ab482a463544c281dc413cd039396589266b8de1",
+  "kaggle_status": "KernelWorkerStatus.COMPLETE",
+  "kaggle_url": "https://www.kaggle.com/code/arabidopsisthalian/ihes-method-01-parameterized-transforms",
+  "kaggle_version": 3,
+  "kernel_source_requested": "arabidopsisthalian/ihes-method-01-parameterized-transforms/2",
+  "model_id": "1778521793",
+  "pending_puzzle_ids": [
+    103,
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111,
+    112,
+    113,
+    114,
+    115,
+    116,
+    117,
+    118,
+    119,
+    120
+  ],
+  "result_evidence": "verified_non_advancing_failed_shard",
+  "resume_diagnosis": {
+    "cause": "The requested source version was cancelled and did not present the three recovered completed rows to the run. The loader accepted an artifact set with zero completed replay-valid rows because it silently discarded non-completed rows and did not assert the expected resume IDs.",
+    "evidence_limit": "Version 3 did not persist the exact bytes mounted under /kaggle/input, so the public evidence proves zero accepted resume rows but cannot distinguish a Kaggle fallback artifact from another cancelled-version exposure behavior.",
+    "fix": "Resume is now fail-closed on zero completed rows and requires an exact expected completed-ID set before beam search. The next shard pins successful Version 3 rather than cancelled Version 2."
+  },
+  "resume_source_artifact_for_v4": {
+    "benchmark_rows_sha256": "a1255dee599dadd4413b65c6207fa017866e71db825cbc90d361ce5c4a7dd049",
+    "completed_replay_valid_ids": [
+      100,
+      101,
+      102
+    ],
+    "submission_partial_sha256": "5a2618f2fbfbc6c951865d96425bc7c5f9c3db71298aee73ad112bcdc3df79b6"
+  },
+  "resumed_puzzle_ids": [],
+  "run_seconds": 20356,
+  "runtime_device": "Tesla T4",
+  "runtime_shape": "GPU T4 x2",
+  "solutions": [
+    {
+      "delta_vs_reference": -74,
+      "puzzle_id": 100,
+      "replay_valid": true,
+      "runtime_seconds": 6933.572277,
+      "solution_length": 24
+    },
+    {
+      "delta_vs_reference": -76,
+      "puzzle_id": 101,
+      "replay_valid": true,
+      "runtime_seconds": 6428.022118,
+      "solution_length": 23
+    },
+    {
+      "delta_vs_reference": -76,
+      "puzzle_id": 102,
+      "replay_valid": true,
+      "runtime_seconds": 6953.331581,
+      "solution_length": 24
+    }
+  ],
+  "submission_validation": {
+    "maximum_length": 1000,
+    "minimum_length": 1,
+    "rows": 1003,
+    "total_moves": 500394
+  },
+  "target_puzzle_ids": "100-120"
+}

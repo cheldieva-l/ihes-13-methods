@@ -6,13 +6,13 @@
     105
   ],
   "github_commit_expected": "ab482a463544c281dc413cd039396589266b8de1",
-  "kaggle_status_observed": "KernelWorkerStatus.RUNNING",
+  "kaggle_status_observed": "KernelWorkerStatus.COMPLETE",
   "kaggle_url": "https://www.kaggle.com/code/arabidopsisthalian/ihes-method-01-parameterized-transforms",
   "kaggle_version": 3,
   "kernel_source": "arabidopsisthalian/ihes-method-01-parameterized-transforms/2",
   "last_run_time_utc": "2026-08-29T01:00:41.183000Z",
   "machine_shape_requested": "NvidiaTeslaT4",
   "max_new_puzzles": 3,
-  "result_evidence": "pending",
+  "result_evidence": "verified_non_advancing_failed_shard; see 01_v3_nonadvancing.json",
   "target_puzzle_ids": "100-120"
 }
