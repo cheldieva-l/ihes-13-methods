@@ -83,7 +83,8 @@ validator + baseline 21870 (DONE)
 
 | Статус | Work item | Owner | Stop/Done criterion |
 |---|---|---|---|
-| DOING | S1 exact cheap reductions baseline 21870 | Codex/local CPU | отчёт gain + full replay |
+| DONE | S001 axis/loop exact reductions baseline 21870 | Codex/local CPU | 1003/1003 valid; gain 0; не повторять |
+| READY | S1 BFS-window/MITM rewrite baseline 21870 | Codex/local CPU | ≥1 full-replay-valid shorter path |
 | READY | E002 T0 symmetry/reverse fast-20 B2^14 | Codex/Renuka GPU | 20-row paired result |
 | READY | p999 score trace B2^6/10/14 | Codex/Renuka GPU | cutoff/rank loss depth known |
 | BACKLOG | U2 center fiber/transitions | Codex/local CPU | reachable states + table |
@@ -120,4 +121,3 @@ dependency,smallest_test,stop_rule,result,next_decision
 - PMI resource leveling: https://www.pmi.org/learning/library/scheduling-resource-leveling-project-progression-8006
 - WIP limits: https://www.atlassian.com/agile/kanban/wip-limits/
 - NASA risk-informed planning/register: https://lmse.larc.nasa.gov/admin/public_docs/LMS_CP_8000.4_RevB_FINAL.pdf
-

@@ -34,6 +34,7 @@
 | Run | Модель/метод | Выборка | Beam / nodes | Valid | Wins/Ties/Losses | Sum delta | Mean delta | Paired t p | Sign p | Bootstrap 95% CI | GPU time | Решение |
 |---|---|---|---:|---:|---|---:|---:|---:|---:|---|---:|---|
 | E001 | T0 MLP `1778521793` smoke | p9 | 2^14 | 1/1 | — | 0 | 0 | — | — | — | 3.933 s | инфраструктура исправна |
+| S001 | exact axis reduction + exact-state loop removal | все 1003 | CPU full replay | 1003/1003 | 0/1003/0 | 0 | 0 | — | — | — | <1 s CPU | дешёвые тождества исчерпаны; перейти к BFS-window |
 | E002 | T0 MLP + symmetry/reverse | fast-20 | 2^14 | pending | pending | pending | pending | pending | pending | pending | pending | запустить |
 | E003 | T0 MLP + symmetry/reverse | fast-20 | 2^16 | pending | pending | pending | pending | pending | pending | pending | pending | очередь |
 | E010 | T1 PieceTransformerQ | fast-20 | 2^14 | pending | pending | pending | pending | pending | pending | pending | pending | после checkpoint |
@@ -108,7 +109,7 @@ sum delta и либо bootstrap CI уже исключает ноль, либо 
 1. E002 T0 fast-20 B2^14.
 2. p999 score-trace B2^6/B2^10/B2^14; определить место потери incumbent-пути.
 3. Q1 и Q3 при равном числе узлов.
-4. S1 exact rewrite текущего submission 21870.
+4. S1 BFS-window rewrite текущего submission 21870; S001 уже показал нулевой gain
+   для свёртки параллельных слоёв и удаления точных циклов.
 5. U2 2048-state center-coordinate table.
 6. T1 checkpoints: обычный loss против Bellman/Q consistency; затем blend grid.
-
