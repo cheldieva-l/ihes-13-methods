@@ -10,7 +10,9 @@
 Отдельные живые журналы:
 
 - [сравнение моделей и методов](./IHES_MODEL_METHOD_COMPARISONS.md);
-- [реестр Molab-запусков и профилей](./MOLAB_RUN_REGISTRY.md).
+- [реестр Molab-запусков и профилей](./MOLAB_RUN_REGISTRY.md);
+- [управление ресурсами](./IHES_RESOURCE_LEDGER.md);
+- [critical path, gates, риски и задачи](./IHES_PROJECT_CONTROL.md).
 
 ## Цель и текущее положение
 
