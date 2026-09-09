@@ -7,6 +7,11 @@
 становится результатом только после сохранённого удалённого запуска и полного replay
 официальными 18 генераторами IHES.
 
+Отдельные живые журналы:
+
+- [сравнение моделей и методов](./IHES_MODEL_METHOD_COMPARISONS.md);
+- [реестр Molab-запусков и профилей](./MOLAB_RUN_REGISTRY.md).
+
 ## Цель и текущее положение
 
 | Показатель | Значение |
@@ -66,6 +71,7 @@ center-coordinate/PDB и выбор такого подъёма 3x3-решени
 | T1 | IHES PieceTransformerQ + scalar V | 10–40 | 2–4 GPU-дня | средний | checkpoints 2k/4k на fast-20 |
 | D1 | distillation/ranking на состояниях лучших путей + hard negatives | 5–25 | 1–2 GPU-дня | средний | paired fast-20, одинаковый beam |
 | U1 | несколько 3x3 quotient-путей + center coordinate/PDB/kernel macros | 10–50+ | 2–4 дня разработки | средний, высокий upside | построить center signature и найти первый kernel macro |
+| U2 | расширить Kociemba/H48 точной 11-bit center-fiber координатой | 10–50+ | 1–3 дня разработки | средне-высокий | измерить достижимый center fiber и построить transition table |
 | B1 | anytime/diverse beam, beam-stack или stochastic top-k вместо одного детерминированного beam | 3–15 | 3–8 GPU-ч | средний | одинаковый бюджет узлов на fast-20 |
 | G1 | граф путей | только диагностика | ≤2 ч | низкий как самостоятельный solver | использовать лишь для S1/U1 |
 
@@ -78,7 +84,7 @@ center-coordinate/PDB и выбор такого подъёма 3x3-решени
 
 | Узкое место | Почему мешает цели | Что нужно | Критерий закрытия |
 |---|---|---|---|
-| R0: ещё нет успешного Molab E001 | нельзя доверять большим GPU-запускам | один p9 B2^14 в активной Renuka RTX-сессии | модель загрузилась, путь сохранён, full replay записан |
+| R0: успешный Molab E001 | **закрыто 10 сентября** | p9 B2^14 в Renuka RTX-сессии | 3.933 s, длина 7, full replay valid |
 | R1: нет честной T0 кривой по beam | неизвестна отдача от GPU | E002–E004 на неизменном fast-20 | таблица B2^14/16/18 с paired delta |
 | R2: центр-ориентация не вынесена в явную координату | обычный 3x3 путь недостаточен | center signature, kernel moves/macros и цена correction | хотя бы один корректный lift короче incumbent либо доказательный negative result |
 | R3: улучшение всего 30 ходов мало относительно шума | легко выбрать модель по случайности | фиксированные 20/50, paired bootstrap/sign test | подтверждённый суммарный выигрыш на selection-50 |
@@ -103,7 +109,7 @@ center-coordinate/PDB и выбор такого подъёма 3x3-решени
 | ID | Система | Модель/метод | Кубики | Beam | Статус | Результат/следующий шаг |
 |---|---|---|---|---:|---|---|
 | E000 | Kaggle | T0, прежний контроль | 106 | 1 000 000 | завершён ранее | valid, длина 24; это проверка инфраструктуры, не прогресс к 21840 |
-| E001 | Molab Renuka | T0 smoke | 9 | 2^14 | скрипт опубликован, запуск следующий | commit `750c8fd`; проверить GPU, model loading и replay |
+| E001 | [Molab Renuka](https://molab.marimo.io/notebooks/nb_65WC1dSjdUsbupzQFHdWnZ) | T0 smoke | 9 | 2^14 | **завершён** | RTX Pro 6000; 3.933 s; длина 7; full replay valid; commit `5fba461` |
 | E002 | Molab | T0 + symmetry/reverse | 983..1002 | 2^14 | после E001 | первая точка фиксированного baseline |
 | E003 | Molab | T0 + symmetry/reverse | 983..1002 | 2^16 | очередь | вторая точка baseline |
 | E004 | Molab | T0 + symmetry/reverse | 983..1002 | 2^18 | очередь | третья точка baseline |
@@ -117,13 +123,36 @@ puzzle_id,beam,nodes,wall_seconds,frame,solved,valid,path_length,
 incumbent_length,delta
 ```
 
+## Найденные внешние опоры и выводы
+
+- Picture/supercube имеет `4^6 / 2 = 2048` допустимых вариантов ориентации шести
+  центров над обычным 3×3 состоянием. Это делает точную center-fiber таблицу маленькой
+  и резко повышает приоритет U2: https://www.jaapsch.net/puzzles/cube3.htm
+- Группа «invisible solutions» именно описывает слова, возвращающие обычный 3×3 в
+  solved, но меняющие ориентации центров; это математическая основа kernel-макросов:
+  https://vc.bridgew.edu/honors_proj/296/
+- Korf: IDA* + pattern databases даёт точные нижние границы для подзадач; применимо
+  к отдельной center coordinate и к локальным rewrite: https://www.cs.princeton.edu/courses/archive/fall06/cos402/papers/korfrubik.pdf
+- Kociemba перебирает несколько phase-1 решений и выбирает короткую сумму двух фаз;
+  для IHES нужно ранжировать lift с учётом center correction, а не брать один quotient:
+  https://kociemba.org/math/twophase.htm
+- DeepCubeA показывает практический BWAS с learned cost-to-go; для нашего сильного
+  incumbent важнее сравнить BWAS/anytime с обычным layer beam при равном числе узлов:
+  https://deepcube.igb.uci.edu/static/files/SolvingTheRubiksCubeWithDeepReinforcementLearningAndSearch_Final.pdf
+- Открытая IHES-реализация `Erlemar/cayley-puzzles` документирует полезные уже
+  проверенные компоненты: Bellman bootstrap, int8 million-beam, Q-distillation,
+  NISS, MITM и BFS-d5 post-processing. Её собственный лучший score 23224 хуже нашего
+  21870, но отдельные компоненты можно переносить после diff/benchmark:
+  https://github.com/Erlemar/cayley-puzzles
+
 ## Ближайшая последовательность действий
 
-1. Получить лучший доступный submission через Kaggle API и сохранить его hash.
-2. Запустить на Molab `E001`: `puzzle_id=9`, короткий beam, затем полный 72-position replay.
-3. Подключить проверенные symmetry/reverse transforms из IHES-ноутбука Андрея.
-4. Запустить `E002–E004` на неизменном `fast-20`.
-5. Параллельно вывести IHES 26-piece layout и T1 input encoding из официальных generators.
+1. Подключить проверенные symmetry/reverse transforms из IHES-ноутбука Андрея.
+2. Запустить `E002–E004` на неизменном `fast-20`.
+3. Параллельно построить 2048-state center-fiber coordinate и transition table U2.
+4. Проверить S1 на текущем валидном baseline 21870: algebraic reduction, exact
+   state-loop removal и BFS window replacement; принять только full-replay улучшения.
+5. Вывести IHES 26-piece layout и T1 input encoding из официальных generators.
 6. После первого T1 checkpoint сравнить его с T0 по этому же протоколу.
 7. Только победителей переносить на `selection-50`, затем на дорогие beams.
 
