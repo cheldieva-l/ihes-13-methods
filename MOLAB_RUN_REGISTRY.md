@@ -23,6 +23,8 @@
 | Renuka | E008 p999 suffix splice | [nb_65WC1dSjdUsbupzQFHdWnZ](https://molab.marimo.io/notebooks/nb_65WC1dSjdUsbupzQFHdWnZ) | RTX Pro 6000 Blackwell | завершён 11:46 | 10/10 searches, errors 0, valid shorter candidates 0, 43.506 s | stop E008 |
 | Renuka | E003 fast-20 B2^16 | [nb_65WC1dSjdUsbupzQFHdWnZ](https://molab.marimo.io/notebooks/nb_65WC1dSjdUsbupzQFHdWnZ) | RTX Pro 6000 Blackwell | running с 11:47 | pending | проверить примерно в 12:30 |
 | Renuka | E009 fast-20 all 48 frames B2^14 | [nb_Yyuy9RzfsXUKp2CK12oxMq](https://molab.marimo.io/notebooks/nb_Yyuy9RzfsXUKp2CK12oxMq) | RTX Pro 6000 Blackwell | running с 11:51 | pending | проверить по завершении |
+| Liuda | E010 T1 PieceTransformer seed42 K23 | URL после запуска | RTX Pro 6000 | queued | restartable checkpoints each epoch; eval each 10 | запустить в slot 1 |
+| Liuda | E011 T1 PieceTransformer seed42 K40 | URL после запуска | RTX Pro 6000 | queued | отличается от E010 только глубиной RW curriculum | запустить в slot 2 |
 | Chandru | E001 импорт | [nb_Wm5mw3SEBwmeLf62a4Hjb6](https://molab.marimo.io/notebooks/nb_Wm5mw3SEBwmeLf62a4Hjb6) | выбран RTX Pro 6000 | launch 403: GPU quota занята | кодовая ячейка исправна; GPU run не состоялся | повторять только при свободной quota |
 | Chandru | старый E001 | [nb_SW9e7mt1PG9jCLyRHA1Agg](https://molab.marimo.io/notebooks/nb_SW9e7mt1PG9jCLyRHA1Agg) | прежний sandbox | остановлен | — | не использовать |
 | Chandru | старый beam 67M | [nb_E9bq8C6kvmGZwd6DouhfNv](https://molab.marimo.io/notebooks/nb_E9bq8C6kvmGZwd6DouhfNv) | прежний sandbox | остановлен | stale output | не использовать |
@@ -35,6 +37,10 @@
 profile,experiment_id,notebook_url,git_sha,compute,started_at,finished_at,
 status,puzzle_set,beam,model,valid,score_or_length,gpu_seconds,output,next_step
 ```
+
+Molab launcher для E010/E011: `tools/molab_transformer_train.py`. Он закрепляет
+training core commit `5a72174`, сохраняет checkpoints в `/marimo/ihes_runs/<run_id>`
+каждую эпоху и автоматически продолжает с `_latest.pt` после замены 12-часовой сессии.
 
 ## Правила
 
