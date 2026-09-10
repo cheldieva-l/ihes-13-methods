@@ -1,5 +1,15 @@
 # IHES — реестр Molab-запусков
 
+## Аудит 10 сентября, 15:35 МСК
+
+| Профиль | Ноутбук | Наблюдение | Вывод |
+|---|---|---|---|
+| Liuda | [nb_fxcxVdJ1ucCsTU85XyfDZU](https://molab.marimo.io/notebooks/nb_fxcxVdJ1ucCsTU85XyfDZU) | В списке Running, при открытии Sandbox capacity is currently exhausted | Прогресс/experiment неизвестны; не перезапускать по этому сигналу |
+| Renuka | [E009](https://molab.marimo.io/notebooks/nb_Yyuy9RzfsXUKp2CK12oxMq) | Read-only preview, прежние 2 строки p983/p984, live-таймера нет | Current state unknown; данные не являются свежим завершением |
+
+Из этого аудита нельзя получить число реально вычисляющих GPU. На Liuda
+ноутбук найден уже существующим; нового вычислительного кода не запускали.
+
 ## Последние известные запуски — обновление 10 сентября, 15:25 МСК
 
 | Профиль / слот | Эксперимент | Ссылка | Последняя проверка | Текущий статус |
