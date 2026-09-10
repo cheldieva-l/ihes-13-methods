@@ -5,6 +5,10 @@
 Здесь хранится соответствие `профиль Molab → ноутбук → эксперимент`. Email, пароли,
 токены и другие секреты не публикуются. Ссылку проверять под указанным профилем.
 
+Плановые профили: `Liuda`, `Chandru`, `Renuka`, `Satyanarayan`, `Vivek`; у каждого
+заявлено по два GPU-слота. Наличие quota подтверждается отдельно. Двухчасовой полный
+статус хранится в `MOLAB_GPU_CAPACITY.csv`.
+
 ## Активные и последние запуски
 
 | Профиль | Эксперимент | Ноутбук | Compute | Статус | Проверенный результат | Следующий шаг |
@@ -14,7 +18,9 @@
 | Renuka | E005 p999 score-trace | [nb_65WC1dSjdUsbupzQFHdWnZ](https://molab.marimo.io/notebooks/nb_65WC1dSjdUsbupzQFHdWnZ) | RTX Pro 6000 Blackwell | завершён 09:49; commit `27757d4` | incumbent 23 valid; B2^6/10/14 drop depth 3/4/5; 0 valid candidates; 12.081 s | Q3 root quota, затем limited lookahead rerank |
 | Renuka | E006 p999 equal root quotas | [nb_65WC1dSjdUsbupzQFHdWnZ](https://molab.marimo.io/notebooks/nb_65WC1dSjdUsbupzQFHdWnZ) | RTX Pro 6000 Blackwell | завершён 09:57; commit `4251030`; tests 12/12 | B2^10/14 drop depth 3/4; root12 rank exceeds equal quota; 8.119 s | Q3 stop; E007 limited lookahead |
 | Renuka | E007 p999 pool 8B + one-step backup | [nb_65WC1dSjdUsbupzQFHdWnZ](https://molab.marimo.io/notebooks/nb_65WC1dSjdUsbupzQFHdWnZ) | RTX Pro 6000 Blackwell | завершён 10:08; commits `10d2a35`,`9062aff`; tests 13/13 | pure drop d4; adaptive drop d5; rank 96,153 > B; 76.511 s | stop E007; U2/T1 |
-| Renuka | запасной fork | [nb_yQ3kfqCGbJcZgWX863LkK9](https://molab.marimo.io/notebooks/nb_yQ3kfqCGbJcZgWX863LkK9) | не перепроверено | не запускать без назначения | — | резерв |
+| Renuka | E008 p999 suffix splice | [nb_65WC1dSjdUsbupzQFHdWnZ](https://molab.marimo.io/notebooks/nb_65WC1dSjdUsbupzQFHdWnZ) | RTX Pro 6000 Blackwell | завершён 11:46 | 10/10 searches, errors 0, valid shorter candidates 0, 43.506 s | stop E008 |
+| Renuka | E003 fast-20 B2^16 | [nb_65WC1dSjdUsbupzQFHdWnZ](https://molab.marimo.io/notebooks/nb_65WC1dSjdUsbupzQFHdWnZ) | RTX Pro 6000 Blackwell | running с 11:47 | pending | проверить примерно в 12:30 |
+| Renuka | E009 fast-20 all 48 frames B2^14 | [nb_Yyuy9RzfsXUKp2CK12oxMq](https://molab.marimo.io/notebooks/nb_Yyuy9RzfsXUKp2CK12oxMq) | RTX Pro 6000 Blackwell | running с 11:51 | pending | проверить по завершении |
 | Chandru | E001 импорт | [nb_Wm5mw3SEBwmeLf62a4Hjb6](https://molab.marimo.io/notebooks/nb_Wm5mw3SEBwmeLf62a4Hjb6) | выбран RTX Pro 6000 | launch 403: GPU quota занята | кодовая ячейка исправна; GPU run не состоялся | повторять только при свободной quota |
 | Chandru | старый E001 | [nb_SW9e7mt1PG9jCLyRHA1Agg](https://molab.marimo.io/notebooks/nb_SW9e7mt1PG9jCLyRHA1Agg) | прежний sandbox | остановлен | — | не использовать |
 | Chandru | старый beam 67M | [nb_E9bq8C6kvmGZwd6DouhfNv](https://molab.marimo.io/notebooks/nb_E9bq8C6kvmGZwd6DouhfNv) | прежний sandbox | остановлен | stale output | не использовать |
