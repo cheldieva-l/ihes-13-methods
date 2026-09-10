@@ -39,6 +39,7 @@
 | E002 | T0 MLP + frames 0,40 × direct/reverse | fast-20 | 2^14; 80 searches | 20/20 selected; 0 search solutions | 0/20/0 | 0 | 0 | n/a, all ties | n/a, no non-ties | [0,0] | 616.875 s | эти frames/beam не масштабировать; сначала score-trace |
 | E005 | T0 natural global beam score-trace | p999 | 2^6/2^10/2^14 | incumbent 23 valid; search 0/3 | — | — | — | — | — | — | 0.149/0.375/9.092 s | incumbent drop depth 3/4/5; global score ранжирует путь слишком низко |
 | E006 | T0 equal first-move root quotas | p999 | 2^10/2^14 total | incumbent 23 valid; search 0/2 | — | — | — | — | — | — | 1.097/6.538 s | хуже Q0: drop depth 3/4; остановить Q3 |
+| E007 | T0 pool 8B + one-step Bellman rerank | p999 | B2^14, pool 8B | incumbent 23 valid; search 0/2 | — | — | — | — | — | — | 73.512/76.511 s | drop depth 4/5; rank 96k > B; остановить |
 | E003 | T0 MLP + symmetry/reverse | fast-20 | 2^16 | pending | pending | pending | pending | pending | pending | pending | pending | очередь |
 | E010 | T1 PieceTransformerQ | fast-20 | 2^14 | pending | pending | pending | pending | pending | pending | pending | pending | после checkpoint |
 | E011 | T1 + Bellman/Q consistency | fast-20 | 2^14 | pending | pending | pending | pending | pending | pending | pending | pending | после E010 |
@@ -109,11 +110,10 @@ sum delta и либо bootstrap CI уже исключает ноль, либо 
 
 ## Очередь ближайших сравнений
 
-1. Limited oversample + one-step Bellman rerank: B2^14, candidate pool около 8B, потому что p999 depth-5 raw rank около 7.4B.
-2. Если E007 сохраняет путь дольше, сравнить его с global beam при одинаковом числе model evaluations; иначе остановить.
-3. S2 targeted MITM/endgame только после отдельного дешёвого gate: S001 и S002 дали 0.
-4. U2 2048-state center-coordinate table.
-5. T1 checkpoints: обычный loss против Bellman/Q consistency; затем blend grid.
+1. U2 center-orientation coordinate/PDB и kernel transitions.
+2. T1 checkpoints: обычный loss против Bellman/Q consistency; затем blend grid.
+3. BWAS/best-first только после дешёвого state-score diagnostic с разными глубинами.
+4. S2 targeted MITM/endgame только после отдельного дешёвого gate: S001/S002 дали 0.
 
 Примечание после E005: Q1 `g + lambda*h` не меняет порядок в текущем
 layer-synchronous beam, потому что все кандидаты слоя имеют одинаковый `g`. Его
@@ -122,3 +122,7 @@ layer-synchronous beam, потому что все кандидаты слоя �
 E006 показал, что Q3 с равными квотами не подходит: для root 12 на B2^14 квота 910,
 а incumbent на depth 4 имеет внутриветочный raw rank 1952..1995. Q3 выбрасывает
 правильный путь на слой раньше global Q0.
+
+E007 также остановлен: adaptive lookahead с depth 5 оставил incumbent в pool 8B,
+но его Bellman rank 96,153 при B=16,384; selection cutoff 20.90625 против score
+23.359375. Цена — 42.3 млн дополнительных model evaluations за 76.5 s на одном p999.
