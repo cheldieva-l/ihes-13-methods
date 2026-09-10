@@ -112,9 +112,10 @@ center-coordinate/PDB и выбор такого подъёма 3x3-решени
 |---|---|---|---|---:|---|---|
 | E000 | Kaggle | T0, прежний контроль | 106 | 1 000 000 | завершён ранее | valid, длина 24; это проверка инфраструктуры, не прогресс к 21840 |
 | E001 | [Molab Renuka](https://molab.marimo.io/notebooks/nb_65WC1dSjdUsbupzQFHdWnZ) | T0 smoke | 9 | 2^14 | **завершён** | RTX Pro 6000; 3.933 s; длина 7; full replay valid; commit `5fba461` |
-| E002 | Molab | T0 + symmetry/reverse | 983..1002 | 2^14 | после E001 | первая точка фиксированного baseline |
+| E002 | Molab Renuka | T0 + frames 0,40 direct/reverse | 983..1002 | 2^14 | **завершён** | 80 searches, 0 errors, 0 found, delta 0; 616.875 s |
 | E003 | Molab | T0 + symmetry/reverse | 983..1002 | 2^16 | очередь | вторая точка baseline |
 | E004 | Molab | T0 + symmetry/reverse | 983..1002 | 2^18 | очередь | третья точка baseline |
+| E005 | Molab Renuka | T0 natural beam score-trace | 999 | 2^6/10/14 | **завершён** | incumbent 23 valid; drop depth 3/4/5; 12.081 s; следующий Q3 |
 | E010 | Molab | T1 IHES Transformer pilot | synthetic + exact anchors | — | проектируется | проверить 26-piece layout, 18 Q, V и action transport |
 
 ## Формат строки результата

@@ -37,6 +37,7 @@
 | S001 | exact axis reduction + exact-state loop removal | все 1003 | CPU full replay | 1003/1003 | 0/1003/0 | 0 | 0 | — | — | — | <1 s CPU | дешёвые тождества исчерпаны; перейти к BFS-window |
 | S002 | BFS-d5 (790,588 states) + window/2-step rewrite | все 1003 | CPU full replay | 1003/1003 | 0/1003/0 | 0 | 0 | — | — | — | 29.1 s CPU | incumbent уже насыщен BFS-d5; не повторять |
 | E002 | T0 MLP + frames 0,40 × direct/reverse | fast-20 | 2^14; 80 searches | 20/20 selected; 0 search solutions | 0/20/0 | 0 | 0 | n/a, all ties | n/a, no non-ties | [0,0] | 616.875 s | эти frames/beam не масштабировать; сначала score-trace |
+| E005 | T0 natural global beam score-trace | p999 | 2^6/2^10/2^14 | incumbent 23 valid; search 0/3 | — | — | — | — | — | — | 0.149/0.375/9.092 s | incumbent drop depth 3/4/5; global score ранжирует путь слишком низко |
 | E003 | T0 MLP + symmetry/reverse | fast-20 | 2^16 | pending | pending | pending | pending | pending | pending | pending | pending | очередь |
 | E010 | T1 PieceTransformerQ | fast-20 | 2^14 | pending | pending | pending | pending | pending | pending | pending | pending | после checkpoint |
 | E011 | T1 + Bellman/Q consistency | fast-20 | 2^14 | pending | pending | pending | pending | pending | pending | pending | pending | после E010 |
@@ -107,8 +108,12 @@ sum delta и либо bootstrap CI уже исключает ноль, либо 
 
 ## Очередь ближайших сравнений
 
-1. p999 score-trace B2^6/B2^10/B2^14; определить место потери incumbent-пути.
-2. Q1 и Q3 при равном числе узлов.
+1. Q3 root-stratified diagnostic/search при равном числе оценённых узлов; измерить ранг p999 внутри правильного root.
+2. Limited oversample + one-step Bellman rerank: B2^14, candidate pool около 8B, потому что p999 depth-5 raw rank около 7.4B.
 3. S2 targeted MITM/endgame только после отдельного дешёвого gate: S001 и S002 дали 0.
 4. U2 2048-state center-coordinate table.
 5. T1 checkpoints: обычный loss против Bellman/Q consistency; затем blend grid.
+
+Примечание после E005: Q1 `g + lambda*h` не меняет порядок в текущем
+layer-synchronous beam, потому что все кандидаты слоя имеют одинаковый `g`. Его
+проверять только как часть best-first/BWAS, где OPEN содержит разные глубины.
