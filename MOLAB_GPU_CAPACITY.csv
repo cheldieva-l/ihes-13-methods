@@ -1,11 +1,11 @@
 last_checked_msk,profile_id,profile_alias,slot,notebook_url,experiment_id,state,status_source,next_action
-2026-09-10 11:51,0,Liuda,1,,,unknown,not yet audited,switch profile and assign useful run
-2026-09-10 11:51,0,Liuda,2,,,unknown,not yet audited,switch profile and assign useful run
-2026-09-10 11:51,1,Chandru,1,https://molab.marimo.io/notebooks/nb_dUmThXaJsiiMPDjt5qbjsU,,unknown,previous launch had 403,re-audit after switch
-2026-09-10 11:51,1,Chandru,2,,,unknown,not yet audited,switch profile and assign useful run
-2026-09-10 11:51,2,Renuka,1,https://molab.marimo.io/notebooks/nb_65WC1dSjdUsbupzQFHdWnZ,E003_FAST20_B16,running,verified active cell timer,inspect result then reassign
-2026-09-10 11:51,2,Renuka,2,https://molab.marimo.io/notebooks/nb_Yyuy9RzfsXUKp2CK12oxMq,E009_FAST20_ALL_FRAMES_B14,running,verified active cell timer,inspect result then reassign
-2026-09-10 11:51,3,Satyanarayan,1,,,unknown,not yet audited,switch profile and assign useful run
-2026-09-10 11:51,3,Satyanarayan,2,,,unknown,not yet audited,switch profile and assign useful run
-2026-09-10 11:51,4,Vivek,1,,,unknown,not yet audited,switch profile and assign useful run
-2026-09-10 11:51,4,Vivek,2,,,unknown,not yet audited,switch profile and assign useful run
+2026-09-10 12:04,0,Liuda,1,,,unknown,not yet audited,audit profile and start useful run immediately
+2026-09-10 12:04,0,Liuda,2,,,unknown,not yet audited,audit profile and start useful run immediately
+2026-09-10 12:04,1,Chandru,1,https://molab.marimo.io/notebooks/nb_dUmThXaJsiiMPDjt5qbjsU,,unknown,previous launch had 403,re-audit and start useful run immediately if available
+2026-09-10 12:04,1,Chandru,2,,,unknown,not yet audited,audit profile and start useful run immediately
+2026-09-10 12:04,2,Renuka,1,https://molab.marimo.io/notebooks/nb_65WC1dSjdUsbupzQFHdWnZ,E003_FAST20_B16,running,verified 15m52s timer and two completed rows,save result and reassign immediately on finish
+2026-09-10 12:04,2,Renuka,2,https://molab.marimo.io/notebooks/nb_Yyuy9RzfsXUKp2CK12oxMq,E009_FAST20_ALL_FRAMES_B14,running,verified 13m18s timer and first completed row,save result and reassign immediately on finish
+2026-09-10 12:04,3,Satyanarayan,1,,,unknown,not yet audited,audit profile and start useful run immediately
+2026-09-10 12:04,3,Satyanarayan,2,,,unknown,not yet audited,audit profile and start useful run immediately
+2026-09-10 12:04,4,Vivek,1,,,unknown,not yet audited,audit profile and start useful run immediately
+2026-09-10 12:04,4,Vivek,2,,,unknown,not yet audited,audit profile and start useful run immediately
