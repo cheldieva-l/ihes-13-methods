@@ -1,5 +1,10 @@
 # IHES Cube: 13 replay-verified research methods
 
+**Current project framework (10 September 2026):** [IHES 21840 plan](IHES_EXECUTION_PLAN.md),
+[Transformer recipe review](IHES_RECIPE_REVIEW.md), [resource ledger](IHES_RESOURCE_LEDGER.md),
+[Molab run registry](MOLAB_RUN_REGISTRY.md). These supersede the historical queue below.
+The current phase is planning; new implementation and fleet rollout are deferred.
+
 This public research repository turns the thirteen numbered ideas in the source brief into thirteen isolated, reproducible experiments for the [CayleyPy IHES Cube competition](https://www.kaggle.com/competitions/cayleypy-ihes-cube). Every experiment has its own directory and English Kaggle notebook, while sharing one audited implementation of the 72-point permutation puzzle, model loading, beam search, replay validation, benchmark logging, and `submission.csv` generation.
 
 The unnumbered source note “make a PDB for IHES” is recorded as future context in [METHOD.md](METHOD.md); it is not silently promoted to a fourteenth experiment.

@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "updated_date": "2026-09-10",
+  "capacity_source": "user_report_not_yet_verified_on_all_profiles",
+  "maximum_concurrent_sessions_per_account": 2,
+  "maximum_session_hours": 12,
+  "reported_total_gpu_hour_quota": null,
+  "duplicate_source_indices": {"9": 1},
+  "accounts": [
+    {"source_index": 0, "alias": "liuda"},
+    {"source_index": 1, "alias": "chandru"},
+    {"source_index": 2, "alias": "renuka"},
+    {"source_index": 3, "alias": "satyanarayan"},
+    {"source_index": 4, "alias": "vivek"},
+    {"source_index": 5, "alias": "tisa"},
+    {"source_index": 6, "alias": "leonid"},
+    {"source_index": 7, "alias": "peter"},
+    {"source_index": 8, "alias": "gptliudiamay"},
+    {"source_index": 10, "alias": "naomi"},
+    {"source_index": 11, "alias": "ivan"},
+    {"source_index": 12, "alias": "alan"},
+    {"source_index": 13, "alias": "jade"},
+    {"source_index": 14, "alias": "bingkuni"}
+  ],
+  "secrets_policy": "No passwords or tokens in repository, notebook source, outputs or logs. User switches Molab accounts.",
+  "verification_required": "Hardware, two actual sessions, remote artifact restore, and fresh heartbeat per slot."
+}
