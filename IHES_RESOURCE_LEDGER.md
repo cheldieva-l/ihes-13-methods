@@ -22,7 +22,7 @@
 
 | Профиль | URL | Compute | Текущая работа | Статус | Следующая очередь |
 |---|---|---|---|---|---|
-| Renuka | [nb_65WC1dSjdUsbupzQFHdWnZ](https://molab.marimo.io/notebooks/nb_65WC1dSjdUsbupzQFHdWnZ) | RTX Pro 6000, 32 GiB | E005 завершён | активен; 12.081 s, ошибок 0 | Q3/root-rank diagnostic |
+| Renuka | [nb_65WC1dSjdUsbupzQFHdWnZ](https://molab.marimo.io/notebooks/nb_65WC1dSjdUsbupzQFHdWnZ) | RTX Pro 6000, 32 GiB | E005/E006 завершены | активен; E006 tests 12/12, 8.119 s | E007 limited lookahead |
 | Chandru | [nb_dUmThXaJsiiMPDjt5qbjsU](https://molab.marimo.io/notebooks/nb_dUmThXaJsiiMPDjt5qbjsU) | ожидается GPU | не назначено | quota/доступ перепроверить после 08:00 | T1 training |
 | Kaggle | competition notebooks | зависит от quota | только сохранённые версии | не проверено сегодня | fallback/long run |
 

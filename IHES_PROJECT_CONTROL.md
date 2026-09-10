@@ -87,7 +87,8 @@ validator + baseline 21870 (DONE)
 | DONE | S002 BFS-d5/window/2-step rewrite baseline 21870 | Codex/local CPU | 790,588 states; 1003/1003 valid; gain 0; не повторять |
 | DONE | E002 T0 frames 0,40 direct/reverse fast-20 B2^14 | Codex/Renuka GPU | 80 searches; 0 errors; 0 found; delta 0; 616.875 s |
 | DONE | E005 p999 score trace B2^6/10/14 | Codex/Renuka GPU | valid incumbent 23; drop depth 3/4/5; ошибок 0 |
-| IN PROGRESS | Q3 root-stratified selector diagnostic | Codex/Renuka GPU | root rank измерен; equal-node p999 test завершён |
+| DONE / STOP | E006 Q3 root-stratified selector | Codex/Renuka GPU | хуже Q0: drop depth 3/4; root12 quota 910 < rank 1952 |
+| IN PROGRESS | E007 limited oversample + one-step Bellman rerank | Codex/Renuka GPU | p999 B2^14 diagnostic, затем equal-evaluation gate |
 | BACKLOG | U2 center fiber/transitions | Codex/local CPU | reachable states + table |
 | BACKLOG | T1 Bellman Transformer | Codex/second GPU | checkpoint paired test |
 | READY FOR USER | second Molab profile/quota | пользователь | profile open + quota numbers |
