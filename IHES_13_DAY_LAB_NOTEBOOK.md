@@ -116,6 +116,9 @@ center-coordinate/PDB и выбор такого подъёма 3x3-решени
 | E003 | Molab | T0 + symmetry/reverse | 983..1002 | 2^16 | очередь | вторая точка baseline |
 | E004 | Molab | T0 + symmetry/reverse | 983..1002 | 2^18 | очередь | третья точка baseline |
 | E005 | Molab Renuka | T0 natural beam score-trace | 999 | 2^6/10/14 | **завершён** | incumbent 23 valid; drop depth 3/4/5; 12.081 s; следующий Q3 |
+| E006 | Molab Renuka | equal root quotas | 999 | 2^10/14 | **остановлен** | хуже global: drop depth 3/4; quota 910 < within-root rank 1952 |
+| E007 | Molab Renuka | pool 8B + one-step Bellman rerank | 999 | 2^14 | **остановлен** | adaptive drop depth 5; rank 96,153 > 16,384; 76.511 s |
+| U2a | Local CPU | exact 24-center PDB | все 1003 | — | **завершён** | 98,304 states; radius 9; все witnesses valid; full quotient fiber 2048 |
 | E010 | Molab | T1 IHES Transformer pilot | synthetic + exact anchors | — | проектируется | проверить 26-piece layout, 18 Q, V и action transport |
 
 ## Формат строки результата
@@ -158,6 +161,24 @@ incumbent_length,delta
 5. Вывести IHES 26-piece layout и T1 input encoding из официальных generators.
 6. После первого T1 checkpoint сравнить его с T0 по этому же протоколу.
 7. Только победителей переносить на `selection-50`, затем на дорогие beams.
+
+## Проверенный результат U2a
+
+На официальных 72-позиционных IHES generators порядок полной группы равен
+`2125922464947725402112000`; после склейки четырёх стикеров каждого центра порядок
+quotient-группы равен `1038048078587756544000`. Их точное отношение **2048** — размер
+center-orientation fiber над фиксированным обычным 3×3 состоянием.
+
+Отдельная exact BFS по 24 центральным позициям дала 98,304 состояния, радиус 9 и
+нулевое число ошибок при проверке 98,303 parent witnesses. Все 1003 competition
+start states присутствуют. Но p999 incumbent имеет center-distance
+`5,4,5,4,5,6,5,6,7,6,7,6,7,6,5,4,5,4,5,4,3,2,1,0`: корректный короткий путь
+несколько раз увеличивает эту величину. Поэтому center PDB не добавляется как
+монотонный глобальный penalty; она идёт в lift/endgame и как feature для модели.
+
+Следующий U2b — специализированные kernel macros, проверяемые как точные полные
+72-позиционные перестановки, и BFS по 2048 fiber states. Generic SymPy kernel
+слишком медленный и исключён.
 
 ## Вычислительные ресурсы и задачи пользователю
 

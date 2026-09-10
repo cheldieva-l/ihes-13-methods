@@ -89,8 +89,8 @@ validator + baseline 21870 (DONE)
 | DONE | E005 p999 score trace B2^6/10/14 | Codex/Renuka GPU | valid incumbent 23; drop depth 3/4/5; ошибок 0 |
 | DONE / STOP | E006 Q3 root-stratified selector | Codex/Renuka GPU | хуже Q0: drop depth 3/4; root12 quota 910 < rank 1952 |
 | DONE / STOP | E007 limited oversample + one-step Bellman rerank | Codex/Renuka GPU | adaptive drop d5; rank 96k > B16k; 42.3m extra evals |
-| IN PROGRESS | U2 exact center-orientation coordinate/PDB | Codex/local CPU | reachable fiber + verified transitions + first lift diagnostic |
-| BACKLOG | U2 center fiber/transitions | Codex/local CPU | reachable states + table |
+| DONE | U2a exact 24-center PDB + group-order audit | Codex/local CPU | 98,304 states, radius 9, witnesses valid; quotient fiber 2048 |
+| IN PROGRESS | U2b full-kernel macros + lift diagnostic | Codex/local CPU | verified 72-position macros + 2048-state BFS + first lift |
 | BACKLOG | T1 Bellman Transformer | Codex/second GPU | checkpoint paired test |
 | READY FOR USER | second Molab profile/quota | пользователь | profile open + quota numbers |
 | DONE | validator + baseline | Codex | 1003/1003, score 21870 |

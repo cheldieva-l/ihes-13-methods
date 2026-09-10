@@ -61,7 +61,8 @@
 
 1. T0 fast-20 B2^16/18; B2^14 уже завершён с delta 0.
 2. Измеренного времени и quota второй Molab GPU-сессии.
-3. Точной 2048-state center-fiber coordinate для U2.
+3. Специализированных full-kernel macros для U2b; точный размер fiber 2048 и
+   center-only PDB 98,304/radius 9 уже получены и проверены.
 4. Root-rank и тест Q3: E005 уже доказал раннее выпадение p999 на depth 5 при B2^14.
 5. Первого Transformer checkpoint с обычным и Bellman/Q-consistency loss.
 
