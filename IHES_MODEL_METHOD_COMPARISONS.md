@@ -35,7 +35,8 @@
 |---|---|---|---:|---:|---|---:|---:|---:|---:|---|---:|---|
 | E001 | T0 MLP `1778521793` smoke | p9 | 2^14 | 1/1 | — | 0 | 0 | — | — | — | 3.933 s | инфраструктура исправна |
 | S001 | exact axis reduction + exact-state loop removal | все 1003 | CPU full replay | 1003/1003 | 0/1003/0 | 0 | 0 | — | — | — | <1 s CPU | дешёвые тождества исчерпаны; перейти к BFS-window |
-| E002 | T0 MLP + symmetry/reverse | fast-20 | 2^14 | pending | pending | pending | pending | pending | pending | pending | pending | запустить |
+| S002 | BFS-d5 (790,588 states) + window/2-step rewrite | все 1003 | CPU full replay | 1003/1003 | 0/1003/0 | 0 | 0 | — | — | — | 29.1 s CPU | incumbent уже насыщен BFS-d5; не повторять |
+| E002 | T0 MLP + frames 0,40 × direct/reverse | fast-20 | 2^14; 80 searches | 20/20 selected; 0 search solutions | 0/20/0 | 0 | 0 | n/a, all ties | n/a, no non-ties | [0,0] | 616.875 s | эти frames/beam не масштабировать; сначала score-trace |
 | E003 | T0 MLP + symmetry/reverse | fast-20 | 2^16 | pending | pending | pending | pending | pending | pending | pending | pending | очередь |
 | E010 | T1 PieceTransformerQ | fast-20 | 2^14 | pending | pending | pending | pending | pending | pending | pending | pending | после checkpoint |
 | E011 | T1 + Bellman/Q consistency | fast-20 | 2^14 | pending | pending | pending | pending | pending | pending | pending | pending | после E010 |
@@ -106,10 +107,8 @@ sum delta и либо bootstrap CI уже исключает ноль, либо 
 
 ## Очередь ближайших сравнений
 
-1. E002 T0 fast-20 B2^14.
-2. p999 score-trace B2^6/B2^10/B2^14; определить место потери incumbent-пути.
-3. Q1 и Q3 при равном числе узлов.
-4. S1 BFS-window rewrite текущего submission 21870; S001 уже показал нулевой gain
-   для свёртки параллельных слоёв и удаления точных циклов.
-5. U2 2048-state center-coordinate table.
-6. T1 checkpoints: обычный loss против Bellman/Q consistency; затем blend grid.
+1. p999 score-trace B2^6/B2^10/B2^14; определить место потери incumbent-пути.
+2. Q1 и Q3 при равном числе узлов.
+3. S2 targeted MITM/endgame только после отдельного дешёвого gate: S001 и S002 дали 0.
+4. U2 2048-state center-coordinate table.
+5. T1 checkpoints: обычный loss против Bellman/Q consistency; затем blend grid.
