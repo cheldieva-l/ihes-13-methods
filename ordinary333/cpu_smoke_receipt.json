@@ -1,0 +1,18 @@
+{
+  "conjugacy": true,
+  "identity_transport": true,
+  "anchor_solutions_valid": true,
+  "first_step": 2,
+  "resumed_step": 4,
+  "shallow_search": {
+    "status": "solved",
+    "path": [
+      2
+    ],
+    "length": 1,
+    "valid": true,
+    "seconds": 0.0629999999946449,
+    "beam": 64,
+    "reverse": false
+  }
+}

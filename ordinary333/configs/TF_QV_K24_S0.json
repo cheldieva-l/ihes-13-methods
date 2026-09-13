@@ -1,0 +1,1 @@
+{"run_id":"TF_QV_K24_S0","model":"transformer","width":256,"layers":4,"seed":0,"k_max":24,"batch":128,"sym_rows":4,"anchor_batch":128,"value_weight":1.0}
