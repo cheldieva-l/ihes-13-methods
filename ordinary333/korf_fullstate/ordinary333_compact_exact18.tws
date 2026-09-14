@@ -1,0 +1,126 @@
+Name Ordinary333ExactCubiesQuarterLayers
+Set CORNER 8 3
+Set EDGE 12 2
+Set CENTER 6 1
+
+StartState
+CORNER
+0 1 2 3 4 5 6 7
+0 0 0 0 0 0 0 0
+EDGE
+0 1 2 3 4 5 6 7 8 9 10 11
+0 0 0 0 0 0 0 0 0 0 0 0
+CENTER
+0 1 2 3 4 5
+0 0 0 0 0 0
+End
+
+MoveTransformation F0
+CORNER
+4 0 2 3 5 1 6 7
+1 2 0 0 2 1 0 0
+EDGE
+0 8 2 3 4 9 6 7 5 1 10 11
+0 1 0 0 0 1 0 0 1 1 0 0
+CENTER
+0 1 2 3 4 5
+0 0 0 0 0 0
+End
+
+MoveTransformation F1
+CORNER
+0 1 2 3 4 5 6 7
+0 0 0 0 0 0 0 0
+EDGE
+4 1 0 3 6 5 2 7 8 9 10 11
+1 0 1 0 1 0 1 0 0 0 0 0
+CENTER
+1 3 2 4 0 5
+0 0 0 0 0 0
+End
+
+MoveTransformation F2
+CORNER
+0 1 3 7 4 5 2 6
+0 0 1 2 0 0 2 1
+EDGE
+0 1 2 11 4 5 6 10 8 9 3 7
+0 0 0 1 0 0 0 1 0 0 1 1
+CENTER
+0 1 2 3 4 5
+0 0 0 0 0 0
+End
+
+MoveTransformation R0
+CORNER
+3 1 2 7 0 5 6 4
+2 0 0 1 1 0 0 2
+EDGE
+11 1 2 3 8 5 6 7 0 9 10 4
+0 0 0 0 0 0 0 0 0 0 0 0
+CENTER
+0 1 2 3 4 5
+0 0 0 0 0 0
+End
+
+MoveTransformation R1
+CORNER
+0 1 2 3 4 5 6 7
+0 0 0 0 0 0 0 0
+EDGE
+0 3 2 7 4 1 6 5 8 9 10 11
+0 1 0 1 0 1 0 1 0 0 0 0
+CENTER
+5 1 0 2 4 3
+0 0 0 0 0 0
+End
+
+MoveTransformation R2
+CORNER
+0 2 6 3 4 1 5 7
+0 1 2 0 0 2 1 0
+EDGE
+0 1 10 3 4 5 9 7 8 2 6 11
+0 0 0 0 0 0 0 0 0 0 0 0
+CENTER
+0 1 2 3 4 5
+0 0 0 0 0 0
+End
+
+MoveTransformation D0
+CORNER
+0 1 2 3 7 4 5 6
+0 0 0 0 0 0 0 0
+EDGE
+0 1 2 3 7 4 5 6 8 9 10 11
+0 0 0 0 0 0 0 0 0 0 0 0
+CENTER
+0 1 2 3 4 5
+0 0 0 0 0 0
+End
+
+MoveTransformation D1
+CORNER
+0 1 2 3 4 5 6 7
+0 0 0 0 0 0 0 0
+EDGE
+0 1 2 3 4 5 6 7 11 8 9 10
+0 0 0 0 0 0 0 0 1 1 1 1
+CENTER
+0 5 1 3 2 4
+0 0 0 0 0 0
+End
+
+MoveTransformation D2
+CORNER
+3 0 1 2 4 5 6 7
+0 0 0 0 0 0 0 0
+EDGE
+3 0 1 2 4 5 6 7 8 9 10 11
+0 0 0 0 0 0 0 0 0 0 0 0
+CENTER
+0 1 2 3 4 5
+0 0 0 0 0 0
+End
+
+
