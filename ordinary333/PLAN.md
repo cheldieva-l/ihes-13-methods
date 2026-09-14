@@ -1,5 +1,15 @@
 # Ordinary 333: shorter replay-verified solutions
 
+Latest override14September06:55MSK: local full score **21552**, all1003 replay-valid,
+318 saved from user21870; twsearch subword stage alone saved150 from21702.
+CPU worker23580/supervisor12016 alive, deadline11:39:47MSK. Six neural experiments
+have been started by the user; exact links/status evidence in [MOLAB_RUNS.md](MOLAB_RUNS.md).
+The first Chandru page currently returns an internal Molab loading error, so no
+fresh GPU-step evidence. Source review found CUDA RNG tensors loaded to GPU during
+resume; fixed local bundles cast them back to CPU. Request checkpoint/report,
+preserve progress, do not restart from scratch. GPU verification of fix pending.
+Autocontinuations saved for14September12:00 and17:30MSK (two activations).
+
 Latest update13September22:45MSK: official Rokicki twsearch intermediate local sum
 **21652**, all1003replay-valid,50moves saved versus21702. A separate13-hour CPU
 queue with recovery supervisor is running; global optimality is not claimed.
@@ -42,12 +52,12 @@ by a replay-valid per-puzzle minimum. The supplied baseline is clearly attribute
 
 | Profile | Slot | Run | Controlled difference | Status |
 |---|---:|---|---|---|
-| Liuda | 1 | TF_QV_K24_S0 | sparse Q + V, K24 | launch returned 403; training NOT started |
-| Liuda | 2 | TF_QV_K40_S0 | same seed/model, K40 | prepared, not launched |
-| Chandru | 1 | MLP_QV_K24_S0 | residual MLP at the same objective | awaiting user profile switch |
-| Chandru | 2 | TF_QV_K24_S1 | transformer, independent seed | awaiting user profile switch |
-| Renuka | 1 | TF_Q_K24_S0 | remove auxiliary V loss | not launched |
-| Renuka | 2 | TF_QV_K32_S0 | intermediate walk depth | not launched |
+| Liuda | 1 | TF_QV_K24_S0 | sparse Q + V, K24 | user-reported started; step pending |
+| Liuda | 2 | TF_QV_K24_S1 | independent seed | user-reported started; step pending |
+| Chandru | 1 | TF_QV_K32_S0 | intermediate walk depth | user-reported started; page loading error |
+| Chandru | 2 | TF_QV_K40_S0 | longer walk depth | user-reported started; step pending |
+| Renuka | 1 | TF_Q_K24_S0 | remove auxiliary V loss | user-reported started; step pending |
+| Renuka | 2 | MLP_QV_K24_S0 | residual MLP at same objective | user-reported started; step pending |
 
 Train initial bounded pilots, then continue promising checkpoints and alternate
 training with inference. Do not burn six GPU sessions on identical configurations.
@@ -83,9 +93,10 @@ measuring GPU throughput and the fixed benchmark.
 
 ## Operational gates / blockers
 
-Molab Liuda returned HTTP403 at `/api/notebook/launch` despite initially showing
-Running0. Do not label this 'GPU training running'. User has been asked to switch
-to Chandru. Other profiles' current GPU availability is unknown.
+Earlier direct creation returned403. User reports successful creation via
+Fork/Duplicate of the template recorded in MOLAB_RUNS.md; use that method for
+future sessions. Distinguish user-reported launches from actual training-step
+and checkpoint evidence. Corrected checkpoint resume requires live verification.
 
 New Molab notebooks do not persist ordinary runtime-created files automatically.
 Before long runs, verify external checkpoint upload (private token via Secrets),

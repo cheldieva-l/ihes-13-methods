@@ -85,7 +85,8 @@ def train(config,output,resume=None,seconds=1800,smoke_steps=None):
         if saved.get('fingerprint')!=fingerprint:return {'status':'resume_config_mismatch','checkpoint':str(resume)}
         model.load_state_dict(saved['model']);opt.load_state_dict(saved['optimizer']);step=saved['step']
         rng.set_state(saved['rng'].cpu());torch.set_rng_state(saved['torch_rng'].cpu())
-        if device.type=='cuda' and 'cuda_rng' in saved:torch.cuda.set_rng_state_all(saved['cuda_rng'])
+        # map_location=device also moves RNG byte tensors; CUDA generators require CPU states.
+        if device.type=='cuda' and 'cuda_rng' in saved:torch.cuda.set_rng_state_all([state.cpu() for state in saved['cuda_rng']])
     start=time.monotonic();initial_step=step;last_save=start
     receipt=dict(status='running',run_id=config['run_id'],step=step,device=str(device),
                  gpu=torch.cuda.get_device_name() if device.type=='cuda' else None,
