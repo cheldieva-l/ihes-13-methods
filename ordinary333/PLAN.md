@@ -1,5 +1,12 @@
 # Ordinary 333: shorter replay-verified solutions
 
+Noon14September:13h subword run ended normally, final21552/1003valid. Compact
+direct-state pilot completed:1/6 solved(ID9,length7),5timeouts(30s),0improvements.
+Frame-DP resweep21552 also0improvements(54.7s). Compact adapter1960checks passed;
+published portable code in commit4297596. Implement stronger exact cornerPDB
+plus center lower bound next, not repeated weak-hash deep pilots. No deep optimal
+score from that new implementation yet. Current Molab status in MOLAB_RUNS.md.
+
 Latest override14September06:55MSK: local full score **21552**, all1003 replay-valid,
 318 saved from user21870; twsearch subword stage alone saved150 from21702.
 CPU worker23580/supervisor12016 alive, deadline11:39:47MSK. Six neural experiments
